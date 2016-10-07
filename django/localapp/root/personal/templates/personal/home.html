@@ -1,0 +1,12 @@
+{% extends "personal/header.html" %}
+
+{% block content %}
+<p>welcome to home page</p>
+{% for c in content %}
+    <!--{# % if c=='hi' % #}-->
+       <p>{{c}}</p>
+    <!--{# % endif % #}-->
+{% endfor %}
+
+{% include "personal/includes/snippet.html" %}
+{% endblock %}
