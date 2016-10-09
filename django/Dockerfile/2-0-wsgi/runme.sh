@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sudo docker build -t wsgi .
+sudo docker build -t wsgi-omd .
