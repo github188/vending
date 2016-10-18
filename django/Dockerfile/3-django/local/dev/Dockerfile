@@ -4,7 +4,9 @@ FROM wsgi-omd
 COPY init.sh /
 RUN useradd mod_wsgi && su mod_wsgi && chmod +x /init.sh
 #&& rm -rf /var/lib/apt/lists/* \
-CMD ["/bin/bash", "/init.sh"]
+
+# CMD ["/bin/bash", "/init.sh"]
+# there was problem use cmd here,for the script will keep on running if container not override command part
 #ENTRYPOINT ["python", "manage.py", "runmodwsgi", "--reload-on-changes", "--user", "mod_wsgi"]
 
 
