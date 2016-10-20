@@ -1,6 +1,5 @@
-FROM omd-local
-
-CMD ["python", "/volumeCode/vending/django/localomd/manage.py", "runmodwsgi", "--user", "mod_wsgi", "--host", "0.0.0.0", "--port", "80"]
+FROM wsgi-omd
+CMD ["/volumeCode/vending/django/Dockerfile/3-django/local/prd/mod_wsgi-express-80/apachectl", "start"]
 #ENTRYPOINT ["python"]
 
 

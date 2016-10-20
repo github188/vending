@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-sudo docker build -t code:latest .
-sudo docker rm code && sudo docker create -v /volumeCode --name code code
+sudo docker build -t code-vending:latest .
+sudo docker rm code-vending && sudo docker create -v /volumeCode --name code-vending code-vending
  #/bin/true
