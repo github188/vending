@@ -1,0 +1,6 @@
+[user]
+      name = pjsong
+      email = jeson.peng@gmail.com
+[http]
+[https]
+proxy = https://192.168.0.7:1084
