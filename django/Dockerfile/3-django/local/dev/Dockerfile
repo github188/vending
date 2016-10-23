@@ -1,4 +1,4 @@
-FROM wsgi-omd
+FROM wsgi-omd-dev
 
 # init can only work when code mapped from host is ready. so it's in CMD
 COPY init.sh /

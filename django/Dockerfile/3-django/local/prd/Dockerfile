@@ -1,4 +1,6 @@
-FROM wsgi-omd
+FROM wsgi-omd-prd
+
+
 CMD ["/volumeCode/vending/django/Dockerfile/3-django/local/prd/mod_wsgi-express-80/apachectl", "start"]
 #ENTRYPOINT ["python"]
 

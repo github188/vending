@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 sudo docker build -t omd-dev-local .
-# docker network create --subnet 172.18.0.0/12 omd-dev-local
+# docker network create --subnet 172.18.0.0/16 omd-dev-local
 
 #dev run
 sudo docker stop omd-dev-local
