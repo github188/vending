@@ -16,8 +16,8 @@
 #-------end
 
 sudo docker run -d \
--v ~/Documents/git/github/vending/django/Dockerfile/mysql/conf.d:/etc/mysql/conf.d \
--v ~/Documents/git/github/vending/django/Dockerfile/mysql/local/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d \
---name mysql-omd-local -e MYSQL_ROOT_PASSWORD=pjsong --restart unless-stopped \
---ip 172.18.0.2 --network omd-dev-local --network-alias mysql-local mysql-dev-local
+-v ~/Documents/git/github/vending/django/Dockerfile/qqEnterprise/mysql/conf.d:/etc/mysql/conf.d \
+-v ~/Documents/git/github/vending/django/Dockerfile/qqEnterprise/mysql/local/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d \
+--name mysql-qqEnterprise-local 0.0-e MYSQL_ROOT_PASSWORD=pjsong --restart unless-stopped \
+--ip 172.18.0.11 --network omd-dev-local --network-alias mysql-qqEnterprise-local mysql-dev-local
 
