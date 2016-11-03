@@ -12,7 +12,7 @@ sed -i "$ a STATIC_ROOT\ =\ os.path.join(BASE_DIR,\ 'static')" localomd/settings
 # -------------------------https related configuration
 #set me when behend a proxy; proxy strips this header from all incomming requests;
 #proxy sets this header and sends to django  only for requests come in via https
-# otherwise, let me unset
+# or let me unset
 #sed -i "$ a SECURE_PROXY_SSL_HEADER\ =\ ('HTTP_X_FORWARDED_PROTO', 'https')" localomd/settings.py
 #sed -i "$ a SESSION_COOKIE_SECURE\ =\ True" localomd/settings.py
 #sed -i "$ a CSRF_COOKIE_SECURE\ =\ True" localomd/settings.py
@@ -23,19 +23,16 @@ sed -i "$ a STATIC_ROOT\ =\ os.path.join(BASE_DIR,\ 'static')" localomd/settings
 # make use of SecurityMiddleware. redirects all non-HTTPS to HTTPS except for SECURE_REDIRECT_EXEMPT
 #sed -i "$ a SECURE_SSL_REDIRECT\ =\ True" localomd/settings.py
 
-#config database
 sed -i 's/django.db.backends.sqlite3/django.db.backends.mysql/1' localomd/settings.py
 sed -i "s/os.path.join(BASE_DIR, 'db.sqlite3')/'omd'/1" localomd/settings.py
 sed -i "/'omd',/a\ \ \ \ 'USER': 'root'," localomd/settings.py
 sed -i "/'USER': 'root',/a\ \ \ \ 'PASSWORD': 'pjsong'," localomd/settings.py
 sed -i "/'PASSWORD': 'pjsong',/a\ \ \ \ 'HOST': 'mysql-omd-local'," localomd/settings.py
 
-# init app and database
 python manage.py makemigrations && python manage.py migrate \
 && python manage.py startapp localomddata && python manage.py startapp localomdweb \
 && python manage.py collectstatic --no-input
 
-# add app
 sed -i "/'django.contrib.staticfiles',/a\ \ \ \ 'localomddata'," localomd/settings.py
 sed -i "/'django.contrib.staticfiles',/a\ \ \ \ 'localomdweb'," localomd/settings.py
 
