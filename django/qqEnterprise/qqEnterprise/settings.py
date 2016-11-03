@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,10 @@ WSGI_APPLICATION = 'qqEnterprise.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    },
+    'test': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'qqEnterprise',
         'USER': 'root',

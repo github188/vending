@@ -1,2 +1,3 @@
 **/.idea
 /Dockerfile/3-django/local/dev/mod_wsgi-express-80/
+**/db.sqlite3
