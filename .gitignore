@@ -1,6 +1,7 @@
 .idea
 ENV
 ENV3
+00*.py
 nohup.out
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -92,3 +93,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+django/Dockerfile/localomd/local/dev/mod_wsgi-express-80/htdocs/
+django/Dockerfile/localomd/local/dev/mod_wsgi-express-80/python-eggs/
+django/Dockerfile/localomd/mysql/
+django/Dockerfile/mysql/
+django/Dockerfile/qqEnterprise/mysql/
+django/qqEnterprise/posts/
+django/qqEnterprise/qqEnterprise/

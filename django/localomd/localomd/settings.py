@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
+    'markdown_deux',
+    'pagedown',
+
     'localomdweb',
     'localomddata',
     'mod_wsgi.server',
@@ -78,12 +83,16 @@ WSGI_APPLICATION = 'localomd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'omd',
-        'USER': 'root',
-        'PASSWORD': 'pjsong',
-        'HOST': 'mysql-omd-local',
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    # 'pre': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'omd',
+    #     'USER': 'root',
+    #     'PASSWORD': 'pjsong',
+    #     'HOST': 'mysql-omd-local',
+    # }
 }
 
 
