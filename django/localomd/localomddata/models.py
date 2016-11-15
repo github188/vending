@@ -25,11 +25,11 @@ class VendingMachine(models.Model):
     )
 
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
-    vmSku = models.CharField(max_length=120, unique=True)
-    vmType = models.CharField(max_length=20, choices = VmTypeChoice);
-    cashBoxType = models.CharField(max_length=20, choices = CashBoxType)
-    coinBoxType = models.CharField(max_length=20, choices = CoinBoxType)
-    masterBoardType = models.CharField(max_length=20, choices = MasterBoardType)
+    vmSku = models.CharField("售货机编号", max_length=120, unique=True)
+    vmType = models.CharField("售货机类型", max_length=20, choices = VmTypeChoice);
+    cashBoxType = models.CharField("钞箱类型", max_length=20, choices = CashBoxType)
+    coinBoxType = models.CharField("硬币器类型", max_length=20, choices = CoinBoxType)
+    masterBoardType = models.CharField("主板型号", max_length=20, choices = MasterBoardType)
     controllerBoardType = models.CharField(max_length=20, choices = ControllerBoardType)
     monitorType = models.CharField(max_length=20, choices = MonitorType);
     num_SpringSlot = models.PositiveSmallIntegerField(default=64);
