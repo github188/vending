@@ -1,9 +1,14 @@
 from django.contrib import admin
 from django import forms
+from django.contrib.admin import AdminSite
+
 from .forms import ProductTextForm
 
 from .models import VendingMachine, ProductProvider, Product, Slot, OrderMain, ProductCategory
 
+# class OmdDateSite(AdminSite):
+#     site_header = "abcdfff"
+# admin_omddata = OmdDateSite(name='localomddata')
 
 class VendingMachineAdmin(admin.ModelAdmin):
     list_display = ["id", "vmSku", "vmType", "charger", "num_SpringSlot", "num_GridSlot", "num_Cabinet"]
@@ -71,9 +76,16 @@ class OrderMainAdmin(admin.ModelAdmin):
         model = OrderMain
         verbose_name_plural = "6. 订单查看"
 
-admin.site.register(VendingMachine, VendingMachineAdmin)
-admin.site.register(ProductProvider, ProductProviderAdmin)
-admin.site.register(ProductCategory, ProductCategoryAdmin)
-admin.site.register(Product, ProductAdmin)
-admin.site.register(Slot, SlotAdmin)
-admin.site.register(OrderMain, OrderMainAdmin)
+# admin.site.register(VendingMachine, VendingMachineAdmin)
+# admin.site.register(ProductProvider, ProductProviderAdmin)
+# admin.site.register(ProductCategory, ProductCategoryAdmin)
+# admin.site.register(Product, ProductAdmin)
+# admin.site.register(Slot, SlotAdmin)
+# admin.site.register(OrderMain, OrderMainAdmin)
+
+# admin_omddata.register(VendingMachine, VendingMachineAdmin)
+# admin_omddata.register(ProductProvider, ProductProviderAdmin)
+# admin_omddata.register(ProductCategory, ProductCategoryAdmin)
+# admin_omddata.register(Product, ProductAdmin)
+# admin_omddata.register(Slot, SlotAdmin)
+# admin_omddata.register(OrderMain, OrderMainAdmin)

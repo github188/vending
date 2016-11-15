@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from localomd.admin import admin_omd
+
 urlpatterns = [
+    url(r'^admin_omd/', admin_omd.urls),
     url(r'^admin/', admin.site.urls),
     url(r'^data/', include('localomddata.urls')),
     url(r'^web/', include('localomdweb.urls')),
