@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField
+from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
 
 from localomddata.models import MoneyCharge, VendingMachine, ProductCategory
 
@@ -13,6 +13,9 @@ class ProductCategorySerializer(ModelSerializer):
 
 
 """
+class MoneyChargeSerializer(Serializer):
+    pass
+
 class MoneyChargeCUSerializer(ModelSerializer):
     class Meta:
         model = MoneyCharge

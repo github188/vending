@@ -21,7 +21,7 @@ from localomd.admin import admin_omd
 urlpatterns = [
     url(r'^admin_omd/', admin_omd.urls),
     url(r'^admin/', admin.site.urls),
-    url(r'^data/', include('localomddata.urls')),
+    url(r'^', include('localomddata.urls')),
     url(r'^web/', include('localomdweb.urls')),
     url(r'^api/data/', include("localomddata.api.urls", namespace='data-api')),
 ]
