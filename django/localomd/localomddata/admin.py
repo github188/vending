@@ -4,19 +4,30 @@ from django.contrib.admin import AdminSite
 
 from .forms import ProductTextForm
 
-from .models import VendingMachine, ProductProvider, Product, Slot, OrderMain, ProductCategory
+from .models import VendingMachine, ProductProvider, \
+    Product, Slot, OrderMain, ProductCategory, MoneyCharge, VendingMachineType
+
 
 # class OmdDateSite(AdminSite):
 #     site_header = "abcdfff"
 # admin_omddata = OmdDateSite(name='localomddata')
 
+class VendingMachineTypeAdmin(admin.ModelAdmin):
+    list_display = ["id", "deliveryType", "cashBoxType", "coinBoxType", "num_SpringSlot", "num_GridSlot", "num_Cabinet"]
+    list_display_links = ["deliveryType"]
+    list_filter = ["deliveryType", "num_Cabinet"]
+    ordering = ["deliveryType", "cashBoxType"]
+    search_fields = ["deliveryType", "cashBoxType"]
+    class Meta:
+        model = VendingMachineType
+
 class VendingMachineAdmin(admin.ModelAdmin):
-    list_display = ["id", "vmSku", "vmType", "charger", "num_SpringSlot", "num_GridSlot", "num_Cabinet"]
-    list_display_links = ["vmSku"]
-    # list_editable = ["vmSku"]
-    list_filter = ["vmType", "charger"]
-    ordering = ["charger", "vmType"]
-    search_fields = ["vmType", "charger"]
+    list_display = ["id", "slug", "vmType", "charger", "chargerTel", "installAddress", "installTime", "aliveTime"]
+    list_display_links = ["slug"]
+    list_filter = ["slug", "charger"]
+    ordering = ["charger", "slug"]
+    search_fields = ["chargerTel", "installAddress", "installTime", "aliveTime", "vmType",  "slug", "charger"]
+    exclude = ['slug']
     class Meta:
         model = VendingMachine
 
@@ -31,11 +42,11 @@ class ProductProviderAdmin(admin.ModelAdmin):
         model = ProductProvider
 
 class ProductCategoryAdmin(admin.ModelAdmin):
-    list_display = ["id", "vmSku", "catName", "parent"]
+    list_display = ["id", "slug", "catName", "parent"]
     list_display_links = ["catName"]
-    list_filter = ["vmSku", "catName"]
+    list_filter = ["slug", "catName"]
     ordering = ["catName"]
-    search_fields = ["vmSku", "catName"]
+    search_fields = ["slug", "catName"]
 
     class Meta:
         model = ProductCategory
@@ -46,35 +57,42 @@ class ProductAdmin(admin.ModelAdmin):
                    "orderTime", "orderByUser", "isActive"]
     list_display_links = ["productName"]
     list_filter = ["provider", "productName", "category", "orderPrice", "orderByUser"]
-    ordering = ["provider", "productName", "orderPrice", "category", "orderCount",]
-    search_fields = ["provider", "productName", "category", "productSumary", "productDesc"]
+    ordering = list_filter+ ["orderCount"]
+    search_fields = list_filter + ["productSumary", "productDesc"]
     form = ProductTextForm
     # class Meta:
     #     model = Product
 
 
 class SlotAdmin(admin.ModelAdmin):
-    list_display = ["id", "vmSku", "slotNo", "capacity", "controllType",
+    list_display = ["id", "vmSlug", "slotNo", "capacity", "controllType",
                     "currentItemNum", "malfunctionReportCount", "product"]
-    list_display_links = ["slotNo"]
-    list_filter = ["vmSku", "slotNo", "controllType"]
-    ordering = ["vmSku", "controllType"]
-    search_fields = ["vmSku"]
+    list_display_links = ["id", "slotNo"]
+    ordering = ["vmSlug", "controllType"]
+    list_filter = ordering + ["slotNo"]
+    search_fields = list_filter
     class Meta:
         model = Slot
-        verbose_name_plural = "5. 货道详细"
 
+class MoneyChargeAdmin(admin.ModelAdmin):
+    list_display = ["id", "vmSlug", "totalAmount", "cashAmount", "coinAmount", "createTime", "updateTime"]
+    list_display_links = ["id", "vmSlug", "createTime"]
+    list_filter = ["vmSlug", "createTime"]
+    ordering = ["-createTime"]
+    search_fields = ["vmSlug", "cashAmount", "totalAmount"]
+
+    class Meta:
+        model = MoneyCharge
 
 class OrderMainAdmin(admin.ModelAdmin):
     list_display = ["id", "slot", "payType", "totalPaid", "orderTime", "updateTime"]
     list_display_links = ["slot", "payType"]
     list_filter = ["slot", "orderTime"]
-    ordering = ["orderTime"]
+    ordering = ["-orderTime"]
     search_fields = ["slot", "payType"]
 
     class Meta:
         model = OrderMain
-        verbose_name_plural = "6. 订单查看"
 
 # admin.site.register(VendingMachine, VendingMachineAdmin)
 # admin.site.register(ProductProvider, ProductProviderAdmin)

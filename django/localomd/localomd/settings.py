@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'markdown_deux',
     'pagedown',
+    'rest_framework',
 
     'localomdweb',
     'localomddata',
@@ -95,6 +96,11 @@ DATABASES = {
     # }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ]
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
