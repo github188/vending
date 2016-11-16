@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -57,7 +58,6 @@ class MoneyChargeDeleteAPIView(DestroyAPIView):
     serializer_class = MoneyChargeDetailSerializer
     lookup_field = 'slug'
     #lookup_url_kwarg = "abc"
-
 
 class MoneyChargeListAPIView(ListAPIView):
     queryset = MoneyCharge.objects.all()

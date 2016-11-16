@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpResponse
 
+
+@login_required
 def index(request):
-    hrefDict = [{"name":"HOME", "href":"/"},
+    hrefDict = [
                 {"name":"ADMIN", "href":"/admin_omd"},
                 {"name":"API", "href":"/api/list/"}]
     context = {
@@ -10,8 +12,8 @@ def index(request):
     }
     return render(request, "index.html", context)
 
+@login_required
 def apiIndex(request):
-    print('hello')
     hrefDict = [
         {"name": "HOME", "href": "/"},
         {"name":"MoneyCharge", "href":"/api/data/moneycharge/"},

@@ -146,3 +146,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 FORMAT_MODULE_PATH = ['localomddata.formats', 'localomdweb.formats']
+LOGIN_URL = '/admin_omd/login/'

@@ -12,7 +12,8 @@ from localomddata.models import VendingMachine, ProductProvider, ProductCategory
 
 class OMDSite(AdminSite):
     site_header = '售货机后台管理'
-    site_title = 'zhandian title'
+    site_title = 'omd backend'
+    index_template = "admin/adminIndex.html"
 
 admin_omd = OMDSite(name='localomd')
 

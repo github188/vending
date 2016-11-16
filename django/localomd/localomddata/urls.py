@@ -19,5 +19,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^api/list/', views.apiIndex),
+    url(r'^api/list/', views.apiIndex, name="apilist"),
 ]
