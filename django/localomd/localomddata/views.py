@@ -16,9 +16,10 @@ def index(request):
 def apiIndex(request):
     hrefDict = [
         {"name": "HOME", "href": "/"},
-        {"name":"MoneyCharge", "href":"/api/data/moneycharge/"},
+        {"name": "MoneyCharge", "href":"/api/data/moneycharge/"},
+        {"name": "USERS", "href": "/api/data/users/"},
+        {"name": "Groups", "href": "/api/data/groups/"},
     ]
-    print(hrefDict.__len__())
     context = {
         "hrefDict":hrefDict
     }

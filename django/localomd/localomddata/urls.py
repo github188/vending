@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^api/list/', views.apiIndex, name="apilist"),
+    url(r'^api/data/', include("localomddata.api.urls", namespace='data-api')),
 ]

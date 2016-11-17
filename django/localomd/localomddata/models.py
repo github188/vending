@@ -47,7 +47,6 @@ class VendingMachineType(models.Model):
     #     return reverse("posts:detail", kwargs={"slug": self.slug})
 
 class ProductCategory(models.Model):
-    # vmType = models.ForeignKey(VendingMachineType, on_delete=models.CASCADE, related_name=predicateDict["ProductCategory.vmType"], verbose_name = "售货机类型")
     catName = models.CharField("分类名", max_length=20)
     slug = models.CharField("编辑名", max_length=20)
     parent = models.ForeignKey("self", null=True, blank=True, related_name=predicateDict["ProductCategory.parent"], verbose_name = "父类")
@@ -166,7 +165,7 @@ class MoneyCharge(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "7. 充值记录"
     def __str__(self):
-        return str(self.slug) + '  '+ str(self.cashAmount)+ '  ' + str(self.coinAmount)
+        return str(self.vmSlug) + '  '+ str(self.cashAmount)+ '  ' + str(self.coinAmount)
 
 def createTotalAmount(instance):
     return instance.cashAmount + instance.coinAmount
