@@ -13,13 +13,12 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
 
     )
-from localomddata.models import MoneyCharge
-from .permissions import IsOwnerOrReadOnly
-from .serializers import (
-    MoneyChargeCUSerializer,
-    MoneyChargeDetailSerializer,
+
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.api.serializers.moneycharge import MoneyChargeCUSerializer, MoneyChargeDetailSerializer, \
     MoneyChargeListSerializer
-    )
+from localomddata.models import MoneyCharge
+
 
 
 class MoneyChargeCreateAPIView(CreateAPIView):

@@ -1,8 +1,7 @@
 from django.conf.urls import url, include
 
-from .views import (
-    MoneyChargeListAPIView, MoneyChargeCreateAPIView, MoneyChargeDetailAPIView, MoneyChargeUpdateAPIView,
-    MoneyChargeDeleteAPIView)
+from localomddata.api.views.moneycharge import MoneyChargeListAPIView, MoneyChargeCreateAPIView, \
+    MoneyChargeDetailAPIView, MoneyChargeUpdateAPIView, MoneyChargeDeleteAPIView
 
 urlpatterns = [
     url(r'^moneycharge/$', MoneyChargeListAPIView.as_view(), name='moneycharge'),

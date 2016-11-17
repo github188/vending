@@ -17,8 +17,6 @@ def apiIndex(request):
     hrefDict = [
         {"name": "HOME", "href": "/"},
         {"name": "MoneyCharge", "href":"/api/data/moneycharge/"},
-        {"name": "USERS", "href": "/api/data/users/"},
-        {"name": "Groups", "href": "/api/data/groups/"},
     ]
     context = {
         "hrefDict":hrefDict
