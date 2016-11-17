@@ -1,11 +1,14 @@
 from django.contrib import admin
-from django import forms
-from django.contrib.admin import AdminSite
 
+from localomddata.models.moneycharge import MoneyCharge
+from localomddata.models.ordermain import OrderMain
+from localomddata.models.productcategory import ProductCategory
+from localomddata.models.productprovider import ProductProvider
+from localomddata.models.slot import Slot
+from localomddata.models.slotstatus import SlotStatus
+from localomddata.models.vendingmachine import VendingMachine
+from localomddata.models.vendingmachinetype import VendingMachineType
 from .forms import ProductTextForm
-
-from .models import VendingMachine, ProductProvider, \
-    Product, Slot, OrderMain, ProductCategory, MoneyCharge, VendingMachineType
 
 
 # class OmdDateSite(AdminSite):
@@ -52,27 +55,37 @@ class ProductCategoryAdmin(admin.ModelAdmin):
         model = ProductCategory
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["id","provider", "productName", "orderPrice",  "orderCount", "orderCountUnit", "productPrice",
+    list_display = ["id","provider", "productName", "saleUnitPrice", "orderCountUnit", "orderCount" ,"orderUnitPrice",
                     "imageRefUrl", "imageListUrl", "imageDetailUrl",# "productSumary", "productDesc",
                    "orderTime", "orderByUser", "isActive"]
     list_display_links = ["productName"]
-    list_filter = ["provider", "productName", "category", "orderPrice", "orderByUser"]
+    list_filter = ["provider", "productName", "category", "orderTotalPrice", "orderByUser"]
     ordering = list_filter+ ["orderCount"]
-    search_fields = list_filter + ["productSumary", "productDesc"]
+    search_fields = list_filter + ["productName", "category","productSumary", "productDesc"]
     form = ProductTextForm
     # class Meta:
     #     model = Product
 
 
 class SlotAdmin(admin.ModelAdmin):
-    list_display = ["id", "vmSlug", "slotNo", "capacity", "controllType",
-                    "currentItemNum", "malfunctionReportCount", "product"]
+    list_display = ["id", "vendingMachine", "slotNo", "capacity", "controllType",]
     list_display_links = ["id", "slotNo"]
-    ordering = ["vmSlug", "controllType"]
+    ordering = ["vendingMachine", "controllType"]
     list_filter = ordering + ["slotNo"]
     search_fields = list_filter
     class Meta:
         model = Slot
+
+class SlotStatusAdmin(admin.ModelAdmin):
+    list_display = ["id", "slot", "product", "currentItemNum", "malfunctionReportCount", 'createTime', 'updateTime',]
+    list_display_links = ["id", "slot"]
+    list_filter = ["slot", "product"]
+    ordering =  list_filter + ["-createTime"]
+
+    search_fields = ordering
+    class Meta:
+        model = SlotStatus
+
 
 class MoneyChargeAdmin(admin.ModelAdmin):
     list_display = ["id", "vmSlug", "totalAmount", "cashAmount", "coinAmount", "createTime", "updateTime"]
@@ -85,12 +98,12 @@ class MoneyChargeAdmin(admin.ModelAdmin):
         model = MoneyCharge
 
 class OrderMainAdmin(admin.ModelAdmin):
-    list_display = ["id", "slot", "payType", "totalPaid", "orderTime", "updateTime"]
-    list_display_links = ["slot", "payType"]
-    list_filter = ["slot", "orderTime"]
-    ordering = ["-orderTime"]
-    search_fields = ["slot", "payType"]
-
+    list_display = ["id", "slot", "payType", "status", "totalPaid", "createTime", "updateTime"]
+    list_display_links = ["slot", "payType", "status"]
+    list_filter = ["slot", "createTime", "status"]
+    ordering = ["-createTime", "status"]
+    search_fields = ["slot", "payType", "orderNo", "status"]
+    exclude = ['orderNo']
     class Meta:
         model = OrderMain
 

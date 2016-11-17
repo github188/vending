@@ -17,7 +17,7 @@ from rest_framework.permissions import (
 from localomddata.api.permissions import IsOwnerOrReadOnly
 from localomddata.api.serializers.moneycharge import MoneyChargeCUSerializer, MoneyChargeDetailSerializer, \
     MoneyChargeListSerializer
-from localomddata.models import MoneyCharge
+from localomddata.models.moneycharge import MoneyCharge
 
 
 
@@ -57,7 +57,6 @@ class MoneyChargeDeleteAPIView(DestroyAPIView):
 
 class MoneyChargeListAPIView(ListAPIView):
     queryset = MoneyCharge.objects.all()
-    print(queryset.count())
     serializer_class = MoneyChargeListSerializer
 
     #def get_queryset()

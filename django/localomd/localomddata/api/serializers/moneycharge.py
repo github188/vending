@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
 
-from localomddata.models import MoneyCharge, VendingMachine, ProductCategory
+from localomddata.models.moneycharge import MoneyCharge
 
 
 class MoneyChargeSerializer(Serializer):

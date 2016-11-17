@@ -1,8 +1,6 @@
 from django import forms
 
-from pagedown.widgets import PagedownWidget
-
-from .models import Product, VendingMachine
+from localomddata.models.product import Product
 
 
 class ProductTextForm(forms.ModelForm):
@@ -11,9 +9,9 @@ class ProductTextForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = [
-            "provider","productName", "category", "orderPrice","orderCount", "orderCountUnit", "productPrice",
+            "provider","productName", "category", "orderUnitPrice","orderCount", "orderCountUnit", "saleUnitPrice",
             "imageRefUrl", "imageListUrl", "imageDetailUrl", "productSumary", "productDesc",
-            "orderByUser", "isActive",
+            "orderByUser", "orderTime", "isActive",
         ]
 
 
