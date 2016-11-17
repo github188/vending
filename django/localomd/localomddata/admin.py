@@ -80,7 +80,7 @@ class MoneyChargeAdmin(admin.ModelAdmin):
     list_filter = ["vmSlug", "createTime"]
     ordering = ["-createTime"]
     search_fields = ["vmSlug", "cashAmount", "totalAmount"]
-
+    exclude = ['totalAmount']
     class Meta:
         model = MoneyCharge
 

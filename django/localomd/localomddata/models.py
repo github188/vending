@@ -159,7 +159,7 @@ class MoneyCharge(models.Model):
     vmSlug = models.ForeignKey(VendingMachine, related_name=predicateDict["MoneyCharge.vmSlug"], on_delete=models.CASCADE, verbose_name="售货机编号")
     cashAmount = models.DecimalField("10元金额", default=1, max_digits=3, decimal_places=0)
     coinAmount = models.DecimalField("一元硬币金额", default=1, max_digits=3, decimal_places=0)
-    totalAmount = models.DecimalField("合计金额", default=1, max_digits=3, decimal_places=0)
+    totalAmount = models.DecimalField("合计金额",max_digits=3, decimal_places=0)
     createTime = models.DateTimeField("发生时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)  #, null=True
     class Meta:
