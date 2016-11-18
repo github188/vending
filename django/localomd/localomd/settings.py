@@ -26,7 +26,8 @@ SECRET_KEY = '+k9f)_g((ab=j46!25hcwv#p-1$95ey8hk5&mxo81-o@o)yu^6'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+if(DEBUG):
+    ALLOWED_HOSTS = ALLOWED_HOSTS + ['172.18.0.4']
 
 # Application definition
 
@@ -86,6 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TIME_ZONE': 'Asia/Shanghai',
     },
     # 'pre': {
     #     'ENGINE': 'django.db.backends.mysql',
