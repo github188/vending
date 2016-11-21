@@ -9,7 +9,7 @@ class MoneyChargeSerializer(Serializer):
 class MoneyChargeCUSerializer(ModelSerializer):
     class Meta:
         model = MoneyCharge
-        fields = ('vmSlug', 'cashAmount', 'coinAmount',)
+        fields = ('id', 'vmSlug', 'cashAmount', 'coinAmount',)
 
 
 class MoneyChargeListSerializer(ModelSerializer):
@@ -20,7 +20,7 @@ class MoneyChargeListSerializer(ModelSerializer):
 class MoneyChargeDetailSerializer(ModelSerializer):
     class Meta:
         model = MoneyCharge
-        fields = ('id',) + MoneyChargeCUSerializer.Meta.fields
+        fields = MoneyChargeCUSerializer.Meta.fields
 
 
 

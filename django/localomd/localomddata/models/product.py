@@ -42,7 +42,7 @@ class Product(models.Model):
     imageDetailUrl = models.URLField("详情图", null=True)
     isActive = models.BooleanField("生效", default=False)
     productName = models.CharField("名称", max_length=120)
-    productSumary = models.CharField("摘要", max_length=500)
+    productSummary = models.CharField("摘要", max_length=500)
     productDesc = models.CharField("详细", max_length=1000)
     saleUnitPrice =  models.PositiveSmallIntegerField("单品售价", default=500, validators=[MinValueValidator(1), MaxValueValidator(500)]);
     productBarUrl = models.URLField("支付条码地址", null=True)

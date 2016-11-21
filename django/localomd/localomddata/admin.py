@@ -56,12 +56,12 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["id","provider", "productName", "saleUnitPrice", "orderCountUnit", "orderCount" ,"orderUnitPrice",
-                    "imageRefUrl", "imageListUrl", "imageDetailUrl",# "productSumary", "productDesc",
+                    "imageRefUrl", "imageListUrl", "imageDetailUrl",# "productSummary", "productDesc",
                    "orderTime", "orderByUser", "isActive"]
     list_display_links = ["productName"]
     list_filter = ["provider", "productName", "category", "orderTotalPrice", "orderByUser"]
     ordering = list_filter+ ["orderCount"]
-    search_fields = list_filter + ["productName", "category","productSumary", "productDesc"]
+    search_fields = list_filter + ["productName", "category","productSummary", "productDesc"]
     form = ProductTextForm
     # class Meta:
     #     model = Product

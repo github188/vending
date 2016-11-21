@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 if(DEBUG):
-    ALLOWED_HOSTS = ALLOWED_HOSTS + ['172.18.0.4']
+    ALLOWED_HOSTS = ALLOWED_HOSTS + ['172.18.0.4', '172.18.0.5', 'localhost']
 
 # Application definition
 

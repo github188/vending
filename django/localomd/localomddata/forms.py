@@ -4,13 +4,13 @@ from localomddata.models.product import Product
 
 
 class ProductTextForm(forms.ModelForm):
-    productSumary = forms.CharField(widget=forms.Textarea)
+    productSummary = forms.CharField(widget=forms.Textarea)
     productDesc = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = Product
         fields = [
             "provider","productName", "category", "orderUnitPrice","orderCount", "orderCountUnit", "saleUnitPrice",
-            "imageRefUrl", "imageListUrl", "imageDetailUrl", "productSumary", "productDesc",
+            "imageRefUrl", "imageListUrl", "imageDetailUrl", "productSummary", "productDesc",
             "orderByUser", "orderTime", "isActive",
         ]
 

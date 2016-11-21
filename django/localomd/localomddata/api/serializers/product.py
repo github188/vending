@@ -8,9 +8,9 @@ class ProductSerializer(Serializer):
 class ProductCUSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ('provider', 'orderUnitPrice', 'orderCount','orderCountUnit'
+        fields = ('id', 'provider', 'orderUnitPrice', 'orderCount','orderCountUnit'
                   ,'orderTime','orderByUser','imageRefUrl','imageListUrl', 'imageDetailUrl'
-                  , 'isActive', 'productName',"productSumary","productDesc","saleUnitPrice"
+                  , 'isActive', 'productName','saleUnitPrice', "productSummary","productDesc","saleUnitPrice"
                   ,"productBarUrl","category"
                   ,)
 
