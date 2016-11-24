@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from rest_framework.authtoken import views
 
 from localomddata.api.views.group import GroupListAPIView, GroupCreateAPIView, GroupDetailAPIView, GroupUpdateAPIView, \
     GroupDeleteAPIView
@@ -25,6 +26,8 @@ from localomddata.api.views.vendingmachinetype import VendingMachineTypeListAPIV
 
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-token-auth/', views.obtain_auth_token, name='rest_framework_token'),
+
     url(r'^moneycharge/$', MoneyChargeListAPIView.as_view(), name='moneycharge'),
     url(r'^moneycharge/create/$', MoneyChargeCreateAPIView.as_view(), name='moneycharge-create'),
     url(r'^moneycharge/(?P<id>[\w-]+)/$', MoneyChargeDetailAPIView.as_view(), name='moneycharge-detail'),
