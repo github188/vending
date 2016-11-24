@@ -8,17 +8,20 @@ class ProductSerializer(Serializer):
 class ProductCUSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'provider', 'orderUnitPrice', 'orderCount','orderCountUnit'
-                  ,'orderTime','orderByUser','imageRefUrl','imageListUrl', 'imageDetailUrl'
-                  , 'isActive', 'productName','saleUnitPrice', "productSummary","productDesc","saleUnitPrice"
-                  ,"productBarUrl","category"
+        fields = ('id', 'imageListUrl'
+                  , 'productName','saleUnitPrice', "productSummary","productDesc","saleUnitPrice"
                   ,)
+        # fields = ('id', 'provider', 'orderUnitPrice', 'orderCount','orderCountUnit'
+        #           ,'orderTime','orderByUser','imageRefUrl','imageListUrl', 'imageDetailUrl'
+        #           , 'isActive', 'productName','saleUnitPrice', "productSummary","productDesc","saleUnitPrice"
+        #           ,"productBarUrl","category"
+        #           ,)
 
 
 class ProductListSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ProductCUSerializer.Meta.fields + ('createTime','updateTime',)
+        fields = ProductCUSerializer.Meta.fields  # + ('createTime','updateTime',)
 
 class ProductDetailSerializer(ModelSerializer):
     class Meta:
