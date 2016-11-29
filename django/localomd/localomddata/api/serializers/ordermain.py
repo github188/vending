@@ -15,7 +15,7 @@ class OrderMainCUSerializer(ModelSerializer):
 class OrderMainListSerializer(ModelSerializer):
     class Meta:
         model = OrderMain
-        fields = OrderMainCUSerializer.Meta.fields + ('createTime')
+        fields = OrderMainCUSerializer.Meta.fields + ('createTime',)
 
 class OrderMainDetailSerializer(ModelSerializer):
     class Meta:
