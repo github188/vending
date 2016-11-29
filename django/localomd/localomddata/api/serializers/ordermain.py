@@ -9,13 +9,13 @@ class OrderMainSerializer(Serializer):
 class OrderMainCUSerializer(ModelSerializer):
     class Meta:
         model = OrderMain
-        fields = ('slot', 'payType','product', 'itemCount')
+        fields = ('slot', 'payType','product', 'status', 'itemCount', 'updateTime')
 
 
 class OrderMainListSerializer(ModelSerializer):
     class Meta:
         model = OrderMain
-        fields = OrderMainCUSerializer.Meta.fields + ('createTime', 'updateTime')
+        fields = OrderMainCUSerializer.Meta.fields + ('createTime')
 
 class OrderMainDetailSerializer(ModelSerializer):
     class Meta:
