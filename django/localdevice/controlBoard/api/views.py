@@ -14,9 +14,6 @@ from controlBoard.models import ControlBoardInput, ControlBoardOutput
 
 
 frameId = 1
-ser = serial.Serial(
-    port='/dev/ttyUSB0', baudrate=9600, parity=serial.PARITY_NONE
-    , stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
 
 def getFrameId():
     global frameId
@@ -61,26 +58,18 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         inputCreated = ControlBoardInput.objects.get(pk=response.data['id'])
         cboutput = ControlBoardOutput(input=inputCreated, outputDesc=rotateRet)
         cboutput.save()
-        # outputSerializer = ControlBoardOutSerializer(cboutput)
-        # outputSerializer.save()
-        # print(response.data)
         return response
-
-
-# def dojob(data):
-#     print("I'll rotate the motor by comm port, then save it and send the result to omddta by apiclient")
-#     if(rotate(data)):
-#         return False;
-#     return True
 
 def rotate(data):
     times = data['turnCnt']
     slotNo = data['slotNo']
     inputarr = []
     result = []
-    global ser
+    ser = serial.Serial(
+        port='/dev/ttyUSB0', baudrate=9600, parity=serial.PARITY_NONE
+        , stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     tryoutCnt = 1
-    while ser.is_open==False and threading.Thread.is_alive() and tryoutCnt <= 3 :
+    while ser.is_open==False and tryoutCnt <= 3 :
         time.sleep(2)
         try:
             ser.open()

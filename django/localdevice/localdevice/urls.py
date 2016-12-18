@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token, name='rest_framework_token'),
     url(r'^api/data/controlboard/', include("controlBoard.api.urls", namespace='controlBoard-api')),
     # url(r'^api/data/coinMachine', include("coinMachine.api.urls", namespace='coinMachine-api')),
-    # url(r'^api/data/cashMachine', include("cashMachine.api.urls", namespace='cashMachine-api')),
+    url(r'^api/data/cashmachine/', include("cashMachine.api.urls", namespace='cashMachine-api')),
 ]
