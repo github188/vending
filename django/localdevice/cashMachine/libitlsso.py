@@ -28,7 +28,8 @@ class SSP_COMMAND(Structure):
 class LibItlSSO():
 
     def __init__(self):
-        self.libBasicValidator = CDLL("/home/pjsong/Documents/ws-eclipse-cdt-study/libBasicValidator/Debug/libbasicvalidator.so")
+        address1 = "/home/pjsong/Documents/git/bitbucket/itl-validator/libBasicValidator/Debug/libbasicvalidator.so"
+        self.libBasicValidator = CDLL(address1)
         self.sspCommand = byref(SSP_COMMAND())
         self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyUSB0', self.sspCommand)
         print("initRet:%d" % (self.initRet))
