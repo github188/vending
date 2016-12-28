@@ -14,11 +14,15 @@ class CashboxOperateAdmin(admin.ModelAdmin):
         model = CashboxOperate
 
 class CashboxLogAdmin(admin.ModelAdmin):
-    list_display = ["id", "operate", "operateStatus", "retData", "createTime"]
+    list_display = ["id", "operate", "getOperateName", "operateStatus", "retData", "createTime"]
     list_display_links = list_display
     list_filter = ["operateStatus"]
     ordering = ["-id"]
     search_fields = ["operate", "operateStatus", "retData"]
+
+    def getOperateName(self, obj):
+        return dict(CashboxOperate.operateChoice).get(obj.operate.operateName)
+    getOperateName.short_description = "操作名"
 
     class Meta:
         model = CashboxLog
