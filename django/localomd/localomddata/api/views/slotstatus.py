@@ -53,10 +53,11 @@ class SlotStatusDeleteAPIView(DestroyAPIView):
     #lookup_url_kwarg = "abc"
 
 class SlotStatusListAPIView(ListAPIView):
-    queryset =SlotStatus.objects.all()
     serializer_class =SlotStatusListSerializer
-
-    #def get_queryset()
+    queryset = SlotStatus.objects.all()
+    # def get_queryset(self):
+    #     qs1 = SlotStatus.objects.all()
+    #     return qs1
 
 
 
