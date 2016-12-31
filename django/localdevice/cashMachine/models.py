@@ -11,6 +11,7 @@ class CashMachineManager(models.Manager):
 class CashboxOperate(models.Model):
     operateChoice = (
         ("toll", "收费"),
+        ("terminate", "收费终止"),
         ("charge", "充零钱"),
         ("clearPayout", "零钱清空"),
         ("payout", "找零"),
@@ -30,6 +31,7 @@ class CashboxLog(models.Model):
         ("processing", "进行中"),
         ("succeed", "成功"),
         ("failed", "失败"),
+        ("terminated", "终止")
     )
     operate = models.ForeignKey(CashboxOperate, related_name="logs", on_delete=models.CASCADE, blank=True, null=True, verbose_name = "操作" )
     operateStatus = models.CharField("状态", max_length=100, choices = operateState)
@@ -37,5 +39,7 @@ class CashboxLog(models.Model):
     createTime = models.DateTimeField("创建时间", auto_now=False, auto_now_add=True)
     class Meta:
         verbose_name = verbose_name_plural = "2,钞箱日志"
+        ordering = ["-id",]
+
     def __str__(self):
         return str(self.id)

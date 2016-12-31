@@ -32,7 +32,7 @@ class LibItlSSO():
         self.libBasicValidator = CDLL(address1)
         self.sspCommand = byref(SSP_COMMAND())
         self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyUSB0', self.sspCommand)
-        print("initRet:%d" % (self.initRet))
+        print("libitlsso  initRet:%d" % (self.initRet))
 
 
     def configValidator(self, totalAmount):
@@ -40,7 +40,7 @@ class LibItlSSO():
 
     def channelCnt(self):
         ret = self.libBasicValidator.omd_payout_channel_available_cnt(self.sspCommand)
-        print("available channel count: %d" % ret)
+        print("libitlsso available channel count: %d" % ret)
         return ret;
 
     def payoutNote(self):
@@ -48,9 +48,11 @@ class LibItlSSO():
         print("payout result of libitlsso.py: %d" % ret)
         return ret
 
+    def disableValidator(self):
+        return self.libBasicValidator.disableValidator(self.sspCommand)
 
-    def creditOne(self):
-        return self.libBasicValidator.creditOneNote(self.sspCommand)
+    def creditOne(self, timeoutInSeconds):
+        return self.libBasicValidator.creditOneNote(self.sspCommand, timeoutInSeconds)
 
     # def tollOneByOne(self, amountToDo):
     #     self.config(self, amountToDo)
@@ -67,20 +69,17 @@ class LibItlSSO():
 
     def charge(self, amount):
         tollRet = self.libBasicValidator.omd_charge_loop(self.sspCommand, amount)
-        print("toll ret: %d " % tollRet)
+        print("libitlsso toll ret: %d " % tollRet)
         return tollRet
 
     def payoutCnt(self):
         payoutRet = self.libBasicValidator.omd_payout_note_available_cnt(self.sspCommand)
-        print("current payout cnt: %d " % payoutRet)
+        print("libitlsso  payout cnt: %d " % payoutRet)
         return payoutRet
 
     def emptyStore(self):
         emptiedAmount = self.libBasicValidator.omd_3F_empty_store(self.sspCommand)
         return emptiedAmount
-
-    def disableToll(self):
-        self.libBasicValidator.omd_toll_disable(self.sspCommand)
 
     def closePort(self):
         self.libBasicValidator.close_ssp_port()

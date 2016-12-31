@@ -9,9 +9,13 @@ class CashBoxLogView(ListAPIView):
     def get_queryset(self):
         queryset = CashboxLog.objects.all().order_by("-id")
         operateName = self.request.query_params.get('operateName', None)
-        print("now operateName: " +operateName);
         if (operateName is not None):
+            print("now operateName: " + operateName);
             queryset = queryset.filter(operate__operateName__exact=operateName)
+        operate = self.request.query_params.get('operate', None)
+        if (operate is not None):
+            print("now operate: " + operate);
+            queryset = queryset.filter(operate__exact=operate)
         limit = self.request.query_params.get('limit', '50')
         queryset = queryset[:int(limit)]
         return queryset
