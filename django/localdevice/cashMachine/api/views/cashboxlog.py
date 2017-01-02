@@ -2,7 +2,8 @@
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 
 from cashMachine.api.serializers import CashboxLogSerializer
-from cashMachine.models import CashboxLog
+from cashMachine.models.cashboxlog import CashboxLog
+
 
 class CashBoxLogView(ListAPIView):
     serializer_class = CashboxLogSerializer

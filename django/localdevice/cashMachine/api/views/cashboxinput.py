@@ -1,13 +1,16 @@
 from threading import Thread
 
 import time
+
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.generics import RetrieveAPIView
 
 from cashMachine.api.serializers import CashboxOperateSerializer
 from cashMachine.libitlsso import LibItlSSO
-from cashMachine.models import CashboxOperate, CashboxLog
+from cashMachine.models.cashboxlog import CashboxLog
+from cashMachine.models.cashboxoperate import CashboxOperate
+
 
 class CashBoxInputDetailView(RetrieveAPIView):
     queryset = CashboxOperate.objects.all();
@@ -59,10 +62,6 @@ class OperateCashbox(Thread):
                     cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='terminated')
                     cashboxLog.save()
                     return -1;
-                # if (creditNoteValue == 0):
-                #     cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='failed')
-                #     cashboxLog.save()
-                #     break;
                 else :
                     amountToDo -= creditNoteValue
                     if  amountToDo > 0 :
@@ -87,33 +86,31 @@ class OperateCashbox(Thread):
                 else:
                     cashboxLog = CashboxLog(operate=self.inputCreated, retData=10, operateStatus='succeed')
                 cashboxLog.save()
+
             return 0
 
         if(self.operateName == 'terminate'):
-            self.libItlSSO.disableValidator()
+            self.libItlSSO.setRunningStatusToFalse()
             return 0;
 
         if (self.operateName == 'charge'):
-            amountToDo = self.operateData
-            if(amountToDo > 0):
-                amountToDo = - amountToDo
-            if(amountToDo % 5 != 0):
-                return -1
-            self.libItlSSO.configValidator(amountToDo)
-            channelCnt = self.libItlSSO.channelCnt()
+            # only allow 10 to be charged;
+            self.libItlSSO.configValidator(-10)
+            channelCnt = (300 - self.libItlSSO.payoutCnt())//10
             while(channelCnt > 0 ):
-                creditNoteValue = self.libItlSSO.creditOne()
+                creditNoteValue = self.libItlSSO.creditOne(120)
                 channelCnt -= 1
-                if (creditNoteValue == 0):
-                    cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='failed')
-                    break;
-                else:
-                    cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='processing')
+                if (creditNoteValue <= 0):
+                    cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='terminated')
                     cashboxLog.save()
-            if(self.terminateEvent.is_set() is False):
-                self.terminateEvent.set()
-                cashboxLog = CashboxLog(operate=self.inputCreated, retData=0, operateStatus='terminated')
-                return -1;
+                    return 0
+                else:
+                    if(channelCnt == 1):
+                        cashboxLog = CashboxLog(operate=self.inputCreated, retData=0, operateStatus='succeed')
+                    else:
+                        cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='processing')
+                cashboxLog.save()
+            return 0;
 
         if (self.operateName == 'clearPayout'):
             emptyCnt = self.libItlSSO.emptyStore()

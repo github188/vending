@@ -1,7 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from cashMachine.models import CashboxOperate, CashboxLog
+from cashMachine.models.cashboxlog import CashboxLog
+from cashMachine.models.cashboxoperate import CashboxOperate
+from cashMachine.models.ordermain import OrderMain
 
 
 class CashboxOperateAdmin(admin.ModelAdmin):
@@ -27,5 +29,16 @@ class CashboxLogAdmin(admin.ModelAdmin):
     class Meta:
         model = CashboxLog
 
+class OrderMainAdmin(admin.ModelAdmin):
+    list_display = ['user', 'slot', 'product','itemCount', 'orderNo', 'payType', 'status', 'totalPaid', 'createTime']
+    list_display_links = list_display
+    list_filter = ["slot", "product", "payType",]
+    ordering = ["-id"]
+    search_fields = list_display
+
+    class Meta:
+        model = OrderMain
+
 admin.site.register(CashboxOperate, CashboxOperateAdmin)
 admin.site.register(CashboxLog, CashboxLogAdmin)
+admin.site.register(OrderMain, OrderMainAdmin)

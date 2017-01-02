@@ -38,17 +38,17 @@ class LibItlSSO():
     def configValidator(self, totalAmount):
         self.libBasicValidator.omd_config_validator(self.sspCommand, c_char(0x04), totalAmount)
 
-    def channelCnt(self):
-        ret = self.libBasicValidator.omd_payout_channel_available_cnt(self.sspCommand)
-        print("libitlsso available channel count: %d" % ret)
-        return ret;
+    # def channelCnt(self):
+    #     ret = self.libBasicValidator.omd_payout_channel_available_cnt(self.sspCommand)
+    #     print("libitlsso available channel count: %d" % ret)
+    #     return ret;
 
     def payoutNote(self):
         ret = self.libBasicValidator.payoutOneNote(self.sspCommand)
         print("payout result of libitlsso.py: %d" % ret)
         return ret
 
-    def disableValidator(self):
+    def setRunningStatusToFalse(self):
         return self.libBasicValidator.disableValidator(self.sspCommand)
 
     def creditOne(self, timeoutInSeconds):

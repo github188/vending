@@ -48,9 +48,6 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        # doer = threading.Thread(target=dojob(request.data))
-        # doer.setDaemon(True)
-        # doer.start()
         rotateRet = rotate(request.data)
         print(request.data)
         response = self.create(request, *args, **kwargs)
@@ -61,12 +58,13 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         return response
 
 def rotate(data):
-    times = data['turnCnt']
-    slotNo = data['slotNo']
+    print(data)
+    times = int(data['turnCnt']) if(isinstance(data['turnCnt'], str)) else data['turnCnt']
+    slotNo = int(data['slotNo']) if(isinstance(data['slotNo'], str)) else data['slotNo']
     inputarr = []
     result = []
     ser = serial.Serial(
-        port='/dev/ttyUSB0', baudrate=9600, parity=serial.PARITY_NONE
+        port='/dev/ttyUSB1', baudrate=9600, parity=serial.PARITY_NONE
         , stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     tryoutCnt = 1
     while ser.is_open==False and tryoutCnt <= 3 :
