@@ -26,7 +26,7 @@ class VendingMachine(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "2. 售货机"
     def __str__(self):
-        return self.slug
+        return str(self.id)
 
 
 def createVmSlug(instance):

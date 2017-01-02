@@ -25,4 +25,4 @@ class Slot(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "6. 货道详细"
     def __str__(self):
-        return self.slotNo
+        return str(self.id)

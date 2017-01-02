@@ -9,7 +9,7 @@ class ProductTextForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = [
-            "provider","productName", "category", "orderUnitPrice","orderCount", "orderCountUnit", "saleUnitPrice",
+            "provider","productName", "productNo", "category", "orderUnitPrice","orderCount", "orderCountUnit", "saleUnitPrice",
             "imageRefUrl", "imageListUrl", "imageDetailUrl", "productSummary", "productDesc",
             "orderByUser", "orderTime", "isActive",
         ]

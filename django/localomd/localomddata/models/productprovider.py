@@ -5,7 +5,7 @@ predicateDict = {
 }
 class ProductProvider(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["ProductProvider.user"], default=1, verbose_name = "创建人")
-
+    companyNo = models.CharField("供应商编号", max_length=120, unique=True)
     companyName = models.CharField("公司名", max_length=120, unique=True)
     contactName = models.CharField("联系人名", max_length=120)
     contactTel = models.CharField("联系电话", max_length=11, null = True)

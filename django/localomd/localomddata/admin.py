@@ -55,7 +55,7 @@ class ProductCategoryAdmin(admin.ModelAdmin):
         model = ProductCategory
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["id","provider", "productName", "saleUnitPrice", "orderCountUnit", "orderCount" ,"orderUnitPrice",
+    list_display = ["id","provider", "productNo", "productName", "saleUnitPrice", "orderCountUnit", "orderCount" ,"orderUnitPrice",
                     "imageRefUrl", "imageListUrl", "imageDetailUrl",# "productSummary", "productDesc",
                    "orderTime", "orderByUser", "isActive"]
     list_display_links = ["productName"]
@@ -77,7 +77,7 @@ class SlotAdmin(admin.ModelAdmin):
         model = Slot
 
 class SlotStatusAdmin(admin.ModelAdmin):
-    list_display = ["id", "slot", "product", "currentItemNum", "malfunctionReportCount", 'createTime', 'updateTime',]
+    list_display = ["id", "slot", "product", "currentItemNum","runningStatus", "malfunctionReportCount", 'createTime', 'updateTime',]
     list_display_links = ["id", "slot"]
     list_filter = ["slot", "product"]
     ordering =  list_filter + ["-createTime"]
