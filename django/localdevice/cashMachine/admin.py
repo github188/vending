@@ -30,7 +30,7 @@ class CashboxLogAdmin(admin.ModelAdmin):
         model = CashboxLog
 
 class OrderMainAdmin(admin.ModelAdmin):
-    list_display = ['user', 'slot', 'product','itemCount', 'orderNo', 'payType', 'status', 'totalPaid', 'createTime']
+    list_display = ['user', 'slot', 'product','itemCount', 'orderNo', 'payType', 'status', 'totalPaid','changeLeft', 'createTime']
     list_display_links = list_display
     list_filter = ["slot", "product", "payType",]
     ordering = ["-id"]

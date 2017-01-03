@@ -31,7 +31,7 @@ class LibItlSSO():
         address1 = "/home/pjsong/Documents/git/bitbucket/itl-validator/libBasicValidator/Debug/libbasicvalidator.so"
         self.libBasicValidator = CDLL(address1)
         self.sspCommand = byref(SSP_COMMAND())
-        self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyUSB0', self.sspCommand)
+        self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyACM0', self.sspCommand)
         print("libitlsso  initRet:%d" % (self.initRet))
 
 

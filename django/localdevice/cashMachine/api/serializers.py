@@ -18,4 +18,4 @@ class CashboxLogSerializer(ModelSerializer):
 class OrderMainSerializer(ModelSerializer):
     class Meta:
         model = OrderMain
-        fields = ('id', 'slot', 'product','itemCount','payType',  'totalPaid', 'createTime')  #'user', 'status',
+        fields = ('id', 'slot', 'product','itemCount','payType',  'totalPaid', 'changeLeft', 'createTime')  #'user', 'status',
