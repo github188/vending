@@ -38,7 +38,7 @@ class SlotStatusUpdateAPIView(RetrieveUpdateAPIView):
     queryset =SlotStatus.objects.all()
     serializer_class =SlotStatusCUSerializer
     lookup_field = 'id'
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly] #, IsOwnerOrReadOnly
     #lookup_url_kwarg = "abc"
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)

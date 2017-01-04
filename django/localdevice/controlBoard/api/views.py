@@ -1,4 +1,5 @@
-import threading
+from threading import Thread
+
 import time
 import serial
 from django.core.cache import cache
@@ -33,10 +34,6 @@ def turnSlot(opsId, slotNo):
     toBeSumed = getFrameId()+[opsId] + [1] + [slotNo]
     summedUp = sum(toBeSumed) % 256
     lastVal = toBeSumed + [summedUp]
-    # fmt = '{:02X}' * len(lastVal)
-    # lastStr = fmt.format(*lastVal) #str.join("",("%02X" % i for i in lastVal))
-    # ret = bytes.fromhex(lastStr)
-
     return lastVal
 
 
@@ -48,50 +45,72 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        rotateRet = rotate(request.data)
-        print(request.data)
+        data = request.data;
+        slotNo = int(data['slotNo']) if (isinstance(data['slotNo'], str)) else data['slotNo']
+        firstCmd = turnSlot(3, slotNo)
+        data['inputDesc'] = str(firstCmd)
         response = self.create(request, *args, **kwargs)
-        print(response.data['id'])
+
+        print(request.data)
         inputCreated = ControlBoardInput.objects.get(pk=response.data['id'])
-        cboutput = ControlBoardOutput(input=inputCreated, outputDesc=rotateRet)
-        cboutput.save()
+
+        rotateCoil = RotateCoil(data, inputCreated, firstCmd);
+        rotateCoil.setDaemon(True);
+        rotateCoil.start();
+
+        # rotateRet = rotate(request.data)
+        # cboutput = ControlBoardOutput(input=inputCreated, outputDesc=rotateRet)
+        # cboutput.save()
         return response
 
-def rotate(data):
-    print(data)
-    times = int(data['turnCnt']) if(isinstance(data['turnCnt'], str)) else data['turnCnt']
-    slotNo = int(data['slotNo']) if(isinstance(data['slotNo'], str)) else data['slotNo']
-    inputarr = []
-    result = []
-    ser = serial.Serial(
-        port='/dev/ttyUSB1', baudrate=9600, parity=serial.PARITY_NONE
-        , stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
-    tryoutCnt = 1
-    while ser.is_open==False and tryoutCnt <= 3 :
-        time.sleep(2)
-        try:
-            ser.open()
-            tryoutCnt += 1
-        except Exception as e:
-            print(str(e))
-    tryoutCnt = 1
-    while(ser.is_open == True and tryoutCnt <= times) :
-        ser.flushInput()
-        ser.flushOutput()
-        lastVal = turnSlot(3, slotNo)
-        ser.write(bytes(lastVal))
-        inputarr.append(lastVal)
-        time.sleep(1)
-        out = []
-        while ser.in_waiting>0:
-            out+=[ser.read(1).hex()]
-        print(out)
-        result.append(out)
-        if(out[6:9] != ['03', '01', '00']):
-            return result
-        if(tryoutCnt < times):
+class RotateCoil(Thread):
+    def __init__(self, data, inputCreated, firstCmd):
+        Thread.__init__(self)
+        self.slotNo = int(data['slotNo']) if (isinstance(data['slotNo'], str)) else data['slotNo']
+        self.turnCnt = int(data['turnCnt']) if (isinstance(data['turnCnt'], str)) else data['turnCnt']
+        self.inputCreated = inputCreated
+        self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
+        self.firstCmd = firstCmd
+
+    def run(self):
+        ser = self.ser
+        tryoutCnt = 1
+        while ser.is_open == False and tryoutCnt <= 3:
             time.sleep(2)
-        tryoutCnt += 1
-    data['inputDesc'] = str(inputarr)
-    return result
+            try:
+                ser.open()
+                tryoutCnt += 1
+            except Exception as e:
+                print(str(e))
+                if(tryoutCnt == 3):
+                    cboutput = ControlBoardOutput(input=self.inputCreated, outputDesc='Error open Ser')
+                    cboutput.save()
+
+        tryoutCnt = 1
+        result = []
+        print("turnCnt: %d" % (self.turnCnt))
+        while (ser.is_open == True and tryoutCnt <= self.turnCnt):
+            print("tryoutCnt: %d" % (tryoutCnt))
+            if(tryoutCnt == 1):
+                turnCmd = self.firstCmd;
+            else:
+                turnCmd = turnSlot(3, self.slotNo)
+            ser.flushInput()
+            ser.flushOutput()
+            ser.write(bytes(turnCmd))
+            time.sleep(1)
+            out = []
+            while ser.in_waiting > 0:
+                out += [ser.read(1).hex()]
+            print(out)
+            result.append(out)
+            if (out[6:9] != ['03', '01', '00']):
+                #error happened
+                print("error while loop turnCnt: " + str(out[6:9]))
+                break
+            if (tryoutCnt < self.turnCnt):
+                time.sleep(2)
+            tryoutCnt += 1
+        cboutput = ControlBoardOutput(input=self.inputCreated, outputDesc=result)
+        cboutput.save()
 

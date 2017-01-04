@@ -7,7 +7,7 @@ from controlBoard.models import ControlBoardInput, ControlBoardOutput
 class ControlBoardInAdmin(admin.ModelAdmin):
     list_display = ["id", "slotNo" ,"turnCnt","inputDesc", "createTime"]
     list_display_links = list_display
-    list_filter = ["id"]
+    list_filter = ["slotNo"]
     ordering = ["-id"]
     search_fields = ["inputDesc"]
     class Meta:
