@@ -25,7 +25,7 @@ class VendingMachineType(models.Model):
     num_GridSlot = models.PositiveSmallIntegerField("格子数", default=0, validators=[MinValueValidator(0), MaxValueValidator(1000)]);
     num_Cabinet = models.PositiveSmallIntegerField("柜子数", default=1, validators=[MinValueValidator(1), MaxValueValidator(20)]);
     class Meta:
-        verbose_name = verbose_name_plural = "1. 售货机类型"
+        verbose_name = verbose_name_plural = "01. 售货机类型"
 
     def __str__(self):
         return self.deliveryType + '{:03d}'.format(self.id)

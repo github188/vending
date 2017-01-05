@@ -13,6 +13,7 @@ class ControlBoardInAdmin(admin.ModelAdmin):
     class Meta:
         model = ControlBoardInput
 
+
 class ControlBoardOutAdmin(admin.ModelAdmin):
     list_display = ["id", "input", "outputDesc", "createTime"]
     list_display_links = list_display

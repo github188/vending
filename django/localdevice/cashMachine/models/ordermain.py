@@ -45,7 +45,8 @@ class OrderMain(models.Model):
     payType = models.CharField("支付类型", max_length=1, choices=PayType, default='0')
     status = models.CharField("订单状态", max_length=1, choices=Status, default = '2')
     totalPaid = models.DecimalField("支付金额", max_digits=3, decimal_places=0)
-    changeLeft = models.PositiveSmallIntegerField("零钱余额", default=-1)
+    changeLeft = models.PositiveSmallIntegerField("纸币余额", default=-1)
+    coinLeft = models.PositiveSmallIntegerField("硬币余额", default=-1)
     createTime = models.DateTimeField("下单时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
     class Meta:

@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from localomddata.models.config import Config
 from localomddata.models.moneycharge import MoneyCharge
 from localomddata.models.ordermain import OrderMain
 from localomddata.models.productcategory import ProductCategory
@@ -106,6 +107,16 @@ class OrderMainAdmin(admin.ModelAdmin):
     exclude = ['orderNo']
     class Meta:
         model = OrderMain
+
+class ConfigAdmin(admin.ModelAdmin):
+    list_display = ["id", "user","vendingMachine",  "configType", "confname", "confvalue",]
+    list_display_links = ["id", "confname"]
+    ordering = ["id", "configType"]
+    list_filter = ["vendingMachine", "configType", "confname"]
+    search_fields = list_filter
+
+    class Meta:
+        model = Config
 
 # admin.site.register(VendingMachine, VendingMachineAdmin)
 # admin.site.register(ProductProvider, ProductProviderAdmin)

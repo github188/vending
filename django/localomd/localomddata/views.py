@@ -27,6 +27,7 @@ def apiIndex(request):
         {"name": "售货机类型", "href": "/api/data/vendingmachinetype/"},
         {"name": "用户", "href": "/api/data/user/"},
         {"name": "分组", "href": "/api/data/group/"},
+        {"name": "配置", "href": "/api/data/config/"},
     ]
     context = {
         "hrefDict":hrefDict

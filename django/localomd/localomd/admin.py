@@ -3,7 +3,8 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import User, Group
 
 from localomddata.admin import VendingMachineAdmin, ProductCategoryAdmin, ProductProviderAdmin, ProductAdmin, SlotAdmin, \
-    OrderMainAdmin, MoneyChargeAdmin, VendingMachineTypeAdmin, SlotStatusAdmin
+    OrderMainAdmin, MoneyChargeAdmin, VendingMachineTypeAdmin, SlotStatusAdmin, ConfigAdmin
+from localomddata.models.config import Config
 from localomddata.models.moneycharge import MoneyCharge
 from localomddata.models.ordermain import OrderMain
 from localomddata.models.product import Product
@@ -33,3 +34,4 @@ admin_omd.register(Slot, SlotAdmin)
 admin_omd.register(SlotStatus, SlotStatusAdmin)
 admin_omd.register(MoneyCharge, MoneyChargeAdmin)
 admin_omd.register(OrderMain, OrderMainAdmin)
+admin_omd.register(Config, ConfigAdmin)

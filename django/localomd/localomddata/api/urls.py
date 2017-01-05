@@ -1,6 +1,8 @@
 from django.conf.urls import url, include
 from rest_framework.authtoken import views
 
+from localomddata.api.views.config import ConfigListAPIView, ConfigCreateAPIView, ConfigDetailAPIView, \
+    ConfigUpdateAPIView, ConfigDeleteAPIView
 from localomddata.api.views.group import GroupListAPIView, GroupCreateAPIView, GroupDetailAPIView, GroupUpdateAPIView, \
     GroupDeleteAPIView
 from localomddata.api.views.moneycharge import MoneyChargeListAPIView, MoneyChargeCreateAPIView, \
@@ -101,4 +103,10 @@ urlpatterns = [
         name='vendingmachinetype-update'),
     url(r'^vendingmachinetype/(?P<id>[\w-]+)/delete/$', VendingMachineTypeDeleteAPIView.as_view(),
         name='vendingmachinetype-delete'),
+
+    url(r'^config/$', ConfigListAPIView.as_view(), name='config'),
+    url(r'^config/create/$', ConfigCreateAPIView.as_view(), name='config-create'),
+    url(r'^config/(?P<id>[\w-]+)/$', ConfigDetailAPIView.as_view(), name='config-detail'),
+    url(r'^config/(?P<id>[\w-]+)/edit/$', ConfigUpdateAPIView.as_view(), name='config-update'),
+    url(r'^config/(?P<id>[\w-]+)/delete/$', ConfigDeleteAPIView.as_view(), name='config-delete'),
 ]

@@ -52,7 +52,7 @@ class Product(models.Model):
     updateTime = models.DateTimeField("修改时间", auto_now=True, auto_now_add=False)
 
     class Meta:
-        verbose_name = verbose_name_plural = "5. 商品详细"
+        verbose_name = verbose_name_plural = "05. 商品详细"
     def __str__(self):
         return str(self.id)
 

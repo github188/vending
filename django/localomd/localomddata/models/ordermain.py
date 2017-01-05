@@ -52,7 +52,7 @@ class OrderMain(models.Model):
     createTime = models.DateTimeField("下单时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
     class Meta:
-        verbose_name = verbose_name_plural = "9. 订单查看"
+        verbose_name = verbose_name_plural = "09. 订单查看"
     def __str__(self):
         return self.orderNo
 

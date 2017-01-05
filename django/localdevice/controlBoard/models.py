@@ -20,7 +20,7 @@ class ControlBoardInput(models.Model):
     inputDesc = models.CharField("详细", default="", null=True, max_length=1000)
     createTime = models.DateTimeField("创建时间", auto_now=False, auto_now_add=True)
     class Meta:
-        verbose_name = verbose_name_plural = "2. 输入详细"
+        verbose_name = verbose_name_plural = "1. 输入详细"
     def __str__(self):
         return str(self.id)
 

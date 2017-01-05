@@ -26,6 +26,6 @@ class SlotStatus(models.Model):
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
 
     class Meta:
-        verbose_name = verbose_name_plural = "7. 货道状态记录"
+        verbose_name = verbose_name_plural = "07. 货道状态记录"
     def __str__(self):
         return self.slot.slotNo
