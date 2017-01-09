@@ -52,7 +52,7 @@ class OperateCashbox(Thread):
         if(self.operateName == 'toll'):
             isCharge = self.operateData == 0
             payoutAvailableCnt = self.libItlSSO.payoutCnt()
-            if(payoutAvailableCnt<50):
+            if(payoutAvailableCnt<90):
                 return -1
             amountToDo = self.operateData
             self.libItlSSO.configValidator(amountToDo)
