@@ -50,12 +50,13 @@ class OperateCashbox(Thread):
 
     def run(self):
         if(self.operateName == 'toll'):
+            isCharge = self.operateData == 0
             payoutAvailableCnt = self.libItlSSO.payoutCnt()
             if(payoutAvailableCnt<50):
                 return -1
             amountToDo = self.operateData
             self.libItlSSO.configValidator(amountToDo)
-            while amountToDo > 0 :
+            while amountToDo > 0 or isCharge:
                 creditNoteValue = self.libItlSSO.creditOne(120)
                 # timeout or terminate request happened
                 if (creditNoteValue <= 0):
@@ -70,6 +71,8 @@ class OperateCashbox(Thread):
                         cashboxLog = CashboxLog(operate=self.inputCreated, retData=creditNoteValue, operateStatus='succeed')
                     cashboxLog.save()
 
+            if(isCharge):
+                return 0;
             payoutCnt = amountToDo // -10
             print("need payoutCnt: %d" % payoutCnt)
             if(payoutCnt > 0):

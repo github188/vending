@@ -45,9 +45,11 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        data = request.data;
+        data = request.data
         slotNo = int(data['slotNo']) if (isinstance(data['slotNo'], str)) else data['slotNo']
         firstCmd = turnSlot(3, slotNo)
+        if not request.data._mutable:
+            request.data._mutable = True
         data['inputDesc'] = str(firstCmd)
         response = self.create(request, *args, **kwargs)
 
