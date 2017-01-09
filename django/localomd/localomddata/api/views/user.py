@@ -21,7 +21,7 @@ from localomddata.api.permissions import IsOwnerOrReadOnly
 class UserCreateAPIView(CreateAPIView):
     queryset =User.objects.all()
     serializer_class =UserCUSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def perform_create(self, serializer):
         serializer.save()
@@ -30,6 +30,8 @@ class UserCreateAPIView(CreateAPIView):
 class UserDetailAPIView(RetrieveAPIView):
     queryset =User.objects.all()
     serializer_class =UserDetailSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     lookup_field = 'id'
     #lookup_url_kwarg = "abc"
 
@@ -49,12 +51,15 @@ class UserUpdateAPIView(RetrieveUpdateAPIView):
 class UserDeleteAPIView(DestroyAPIView):
     queryset =User.objects.all()
     serializer_class =UserDetailSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     lookup_field = 'id'
     #lookup_url_kwarg = "abc"
 
 class UserListAPIView(ListAPIView):
     queryset =User.objects.all()
     serializer_class =UserListSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     #def get_queryset()
 

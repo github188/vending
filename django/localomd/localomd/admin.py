@@ -1,10 +1,11 @@
 from django.contrib.admin import AdminSite
-from django.contrib.auth.admin import UserAdmin, GroupAdmin
+from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import User, Group
 
 from localomddata.admin import VendingMachineAdmin, ProductCategoryAdmin, ProductProviderAdmin, ProductAdmin, SlotAdmin, \
-    OrderMainAdmin, MoneyChargeAdmin, VendingMachineTypeAdmin, SlotStatusAdmin, ConfigAdmin
+    OrderMainAdmin, MoneyChargeAdmin, VendingMachineTypeAdmin, SlotStatusAdmin, ConfigAdmin, UserAdmin, MemberAdmin
 from localomddata.models.config import Config
+from localomddata.models.member import Member
 from localomddata.models.moneycharge import MoneyCharge
 from localomddata.models.ordermain import OrderMain
 from localomddata.models.product import Product
@@ -23,7 +24,10 @@ class OMDSite(AdminSite):
 
 admin_omd = OMDSite(name='localomd')
 
+# Re-register UserAdmin
+# admin_omd.unregister(User)
 admin_omd.register(User, UserAdmin)
+admin_omd.register(Member, MemberAdmin)
 admin_omd.register(Group, GroupAdmin)
 admin_omd.register(VendingMachineType, VendingMachineTypeAdmin)
 admin_omd.register(VendingMachine, VendingMachineAdmin)

@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from localomddata.models.config import Config
+from localomddata.models.member import Member
 from localomddata.models.moneycharge import MoneyCharge
 from localomddata.models.ordermain import OrderMain
 from localomddata.models.productcategory import ProductCategory
@@ -117,6 +119,29 @@ class ConfigAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Config
+
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "balance"]
+    list_display_links = list_display
+    ordering = ["-id", "-balance"]
+    list_filter = ["user"]
+    search_fields = list_display
+
+    class Meta:
+        model = Member;
+
+class MemberInline(admin.StackedInline):
+    model = Member
+    can_delete = False
+    fk_name = "user";
+    verbose_name_plural = '会员'
+
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (MemberInline,)
+
+
+
 
 # admin.site.register(VendingMachine, VendingMachineAdmin)
 # admin.site.register(ProductProvider, ProductProviderAdmin)

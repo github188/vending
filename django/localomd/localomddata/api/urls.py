@@ -5,10 +5,13 @@ from localomddata.api.views.config import ConfigListAPIView, ConfigCreateAPIView
     ConfigUpdateAPIView, ConfigDeleteAPIView
 from localomddata.api.views.group import GroupListAPIView, GroupCreateAPIView, GroupDetailAPIView, GroupUpdateAPIView, \
     GroupDeleteAPIView
+from localomddata.api.views.member import MemberListAPIView, MemberCreateAPIView, MemberDetailAPIView, \
+    MemberUpdateAPIView, MemberDeleteAPIView
 from localomddata.api.views.moneycharge import MoneyChargeListAPIView, MoneyChargeCreateAPIView, \
     MoneyChargeDetailAPIView, MoneyChargeUpdateAPIView, MoneyChargeDeleteAPIView
 from localomddata.api.views.ordermain import OrderMainDeleteAPIView, OrderMainUpdateAPIView, OrderMainDetailAPIView, \
     OrderMainCreateAPIView, OrderMainListAPIView
+from localomddata.api.views.permission.permissionview import adminPermView
 from localomddata.api.views.product import ProductListAPIView, ProductCreateAPIView, ProductDetailAPIView, \
     ProductUpdateAPIView, ProductDeleteAPIView
 from localomddata.api.views.productcategory import ProductCategoryListAPIView, ProductCategoryCreateAPIView, \
@@ -26,10 +29,13 @@ from localomddata.api.views.vendingmachine import VendingMachineListAPIView, Ven
 from localomddata.api.views.vendingmachinetype import VendingMachineTypeListAPIView, VendingMachineTypeCreateAPIView, \
     VendingMachineTypeDetailAPIView, VendingMachineTypeUpdateAPIView, VendingMachineTypeDeleteAPIView
 
+
+
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-token-auth/', views.obtain_auth_token, name='rest_framework_token'),
 
+    url(r'^perm/$', adminPermView, name='api-perm'),
     url(r'^moneycharge/$', MoneyChargeListAPIView.as_view(), name='moneycharge'),
     url(r'^moneycharge/create/$', MoneyChargeCreateAPIView.as_view(), name='moneycharge-create'),
     url(r'^moneycharge/(?P<id>[\w-]+)/$', MoneyChargeDetailAPIView.as_view(), name='moneycharge-detail'),
@@ -87,6 +93,12 @@ urlpatterns = [
     url(r'^user/(?P<id>[\w-]+)/$', UserDetailAPIView.as_view(), name='user-detail'),
     url(r'^user/(?P<id>[\w-]+)/edit/$', UserUpdateAPIView.as_view(), name='user-update'),
     url(r'^user/(?P<id>[\w-]+)/delete/$', UserDeleteAPIView.as_view(), name='user-delete'),
+
+    url(r'^member/$', MemberListAPIView.as_view(), name='member'),
+    url(r'^member/create/$', MemberCreateAPIView.as_view(), name='member-create'),
+    url(r'^member/(?P<id>[\w-]+)/$', MemberDetailAPIView.as_view(), name='member-detail'),
+    url(r'^member/(?P<id>[\w-]+)/edit/$', MemberUpdateAPIView.as_view(), name='member-update'),
+    url(r'^member/(?P<id>[\w-]+)/delete/$', MemberDeleteAPIView.as_view(), name='member-delete'),
 
     url(r'^vendingmachine/$', VendingMachineListAPIView.as_view(), name='vendingmachine'),
     url(r'^vendingmachine/create/$', VendingMachineCreateAPIView.as_view(), name='vendingmachine-create'),
