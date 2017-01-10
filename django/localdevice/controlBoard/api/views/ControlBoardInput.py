@@ -25,7 +25,7 @@ def getFrameId():
     if(fi>=255):
         fi=1;
     ret = [0x57,0x58,0x00,0x66, 0x00] + [fi] #['%0.2X'%frameId]  '0x{0:02x}'.format
-    print(ret)
+    print(' '.join(hex(i) for i in ret))
     cache.set('frameId', fi+1)
     return ret
 
@@ -48,8 +48,8 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         data = request.data
         slotNo = int(data['slotNo']) if (isinstance(data['slotNo'], str)) else data['slotNo']
         firstCmd = turnSlot(3, slotNo)
-        if not request.data._mutable:
-            request.data._mutable = True
+        # if data._mutable and data._mutable is False:
+        #     data._mutable = True
         data['inputDesc'] = str(firstCmd)
         response = self.create(request, *args, **kwargs)
 

@@ -40,7 +40,8 @@ class LibItlSSO():
             tryCnt -=1
             self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyACM0', self.sspCommand)
         if(self.initRet<0):
-            return -1;
+            return -1
+        return 1
 
     def configValidator(self, totalAmount):
         if(self.checkInitRet()<0):
@@ -52,6 +53,7 @@ class LibItlSSO():
             tryCnt -= 1
         if(confRet<0):
             return -2;
+        return 1
     # def channelCnt(self):
     #     ret = self.libBasicValidator.omd_payout_channel_available_cnt(self.sspCommand)
     #     print("libitlsso available channel count: %d" % ret)

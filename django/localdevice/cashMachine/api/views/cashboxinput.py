@@ -55,7 +55,8 @@ class OperateCashbox(Thread):
             if(payoutAvailableCnt<90):
                 return -1
             amountToDo = self.operateData
-            self.libItlSSO.configValidator(amountToDo)
+            if(self.libItlSSO.configValidator(amountToDo)<0):
+                return -2
             while amountToDo > 0 or isCharge:
                 creditNoteValue = self.libItlSSO.creditOne(120)
                 # timeout or terminate request happened
