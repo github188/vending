@@ -76,7 +76,7 @@ class OperateCashbox(Thread):
             payoutCnt = amountToDo // -10
             print("need payoutCnt: %d" % payoutCnt)
             if(payoutCnt > 0):
-                time.sleep(5)
+                time.sleep(3)
             while payoutCnt > 0:
                 if self.libItlSSO.payoutNote() == -1 :
                     print("payout failed")

@@ -34,24 +34,44 @@ class LibItlSSO():
         self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyACM0', self.sspCommand)
         print("libitlsso  initRet:%d" % (self.initRet))
 
+    def checkInitRet(self):
+        tryCnt = 10
+        while(self.initRet<0 and tryCnt>0):
+            tryCnt -=1
+            self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyACM0', self.sspCommand)
+        if(self.initRet<0):
+            return -1;
 
     def configValidator(self, totalAmount):
-        self.libBasicValidator.omd_config_validator(self.sspCommand, c_char(0x04), totalAmount)
-
+        if(self.checkInitRet()<0):
+            return -1;
+        tryCnt = 10
+        confRet = self.libBasicValidator.omd_config_validator(self.sspCommand, c_char(0x04), totalAmount)
+        while(confRet < 0 and tryCnt>0):
+            confRet = self.libBasicValidator.omd_config_validator(self.sspCommand, c_char(0x04), totalAmount)
+            tryCnt -= 1
+        if(confRet<0):
+            return -2;
     # def channelCnt(self):
     #     ret = self.libBasicValidator.omd_payout_channel_available_cnt(self.sspCommand)
     #     print("libitlsso available channel count: %d" % ret)
     #     return ret;
 
     def payoutNote(self):
+        if(self.checkInitRet()<0):
+            return -1;
         ret = self.libBasicValidator.payoutOneNote(self.sspCommand)
         print("payout result of libitlsso.py: %d" % ret)
         return ret
 
     def setRunningStatusToFalse(self):
+        if(self.checkInitRet()<0):
+            return -1;
         return self.libBasicValidator.disableValidator(self.sspCommand)
 
     def creditOne(self, timeoutInSeconds):
+        if(self.checkInitRet()<0):
+            return -1;
         return self.libBasicValidator.creditOneNote(self.sspCommand, timeoutInSeconds)
 
     # def tollOneByOne(self, amountToDo):
@@ -68,11 +88,15 @@ class LibItlSSO():
     #     return tollRet
 
     def charge(self, amount):
+        if(self.checkInitRet()<0):
+            return -1;
         tollRet = self.libBasicValidator.omd_charge_loop(self.sspCommand, amount)
         print("libitlsso toll ret: %d " % tollRet)
         return tollRet
 
     def payoutCnt(self):
+        if(self.checkInitRet()<0):
+            return -1;
         payoutRet = self.libBasicValidator.omd_payout_note_available_cnt(self.sspCommand)
         print("libitlsso  payout cnt: %d " % payoutRet)
         return payoutRet
