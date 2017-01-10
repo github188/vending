@@ -111,10 +111,10 @@ class OrderMainAdmin(admin.ModelAdmin):
         model = OrderMain
 
 class ConfigAdmin(admin.ModelAdmin):
-    list_display = ["id", "user","vendingMachine",  "configType", "confname", "confvalue",]
+    list_display = ["id", "user","vendingMachine",  "configtype", "confname", "confvalue",]
     list_display_links = ["id", "confname"]
-    ordering = ["id", "configType"]
-    list_filter = ["vendingMachine", "configType", "confname"]
+    ordering = ["id", "configtype"]
+    list_filter = ["vendingMachine", "configtype", "confname"]
     search_fields = list_filter
 
     class Meta:

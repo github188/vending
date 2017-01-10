@@ -6,7 +6,7 @@ from localomddata.models.slot import Slot
 class ConfigCUSerializer(ModelSerializer):
     class Meta:
         model = Config
-        fields = ('configType', 'confname','confvalue', )
+        fields = ('configtype', 'confname','confvalue', )
 
 
 class ConfigListSerializer(ModelSerializer):
