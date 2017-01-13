@@ -1,9 +1,11 @@
 from django.conf.urls import url
 
-from coinMachine.api.views import CoinMachineView, CoinLogDetailView
+from coinMachine.api.views.CoinmachineInput import CoinMachineInputView
+from coinMachine.api.views.CoinmachineLog import CoinMachineOutputView, CoinMachineOutputLogDetailView
 
 urlpatterns = [
-    url(r'^coinlog/', CoinMachineView.as_view(), name='coinMachine-list'),
-    url(r'^coindetail/$', CoinLogDetailView.as_view(), name='coinMachine-detail'),
-
+    url(r'^run/$', CoinMachineInputView.as_view(), name='run'),
+    # url(r'^coinlog/', CoinMachineLogView.as_view(), name='coinMachine-log'),
+    url(r'^coinoutputlog/', CoinMachineOutputView.as_view(), name='coinMachine-outputlog-list'),
+    url(r'^coinoutputlog/(?P<id>[\w-]+)/$', CoinMachineOutputLogDetailView.as_view(), name='coinMachine-outputlog-detail'),
 ]

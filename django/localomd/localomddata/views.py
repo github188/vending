@@ -28,6 +28,7 @@ def apiIndex(request):
         {"name": "用户", "href": "/api/data/user/"},
         {"name": "分组", "href": "/api/data/group/"},
         {"name": "配置", "href": "/api/data/config/"},
+        {"name": "硬币变更", "href": "/api/data/coinchangelog/"},
     ]
     context = {
         "hrefDict":hrefDict

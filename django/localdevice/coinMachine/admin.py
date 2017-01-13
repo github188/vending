@@ -1,15 +1,27 @@
 from django.contrib import admin
 
-from coinMachine.models import CoinChargeLog
+from coinMachine.models import CoinMachineInput, CoinMachineOutput
 
-
-class CoinMachineAdmin(admin.ModelAdmin):
-    list_display = ["id", "retData" ,"createTime"]
+class CoinMachineInAdmin(admin.ModelAdmin):
+    list_display = ["id","payoutCnt","inputDesc", "createTime"]
     list_display_links = list_display
-    list_filter = ["retData"]
+    list_filter = ["payoutCnt"]
     ordering = ["-id"]
-    search_fields = ["retData"]
+    search_fields = ["inputDesc"]
     class Meta:
-        model = CoinChargeLog
+        model = CoinMachineInput
 
-admin.site.register(CoinChargeLog, CoinMachineAdmin)
+
+class CoinMachineOutAdmin(admin.ModelAdmin):
+    list_display = ["id", "input", "outputDesc", "createTime"]
+    list_display_links = list_display
+    list_filter = ["id"]
+    ordering = ["-id"]
+    search_fields = ["input", "outputDesc"]
+
+    class Meta:
+        model = CoinMachineOutput
+
+
+admin.site.register(CoinMachineInput, CoinMachineInAdmin)
+admin.site.register(CoinMachineOutput, CoinMachineOutAdmin)

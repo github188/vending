@@ -18,7 +18,6 @@ class OperateControlBoard(Thread):
 
     def run(self):
         print(self.requestData)
-
         # config = requests.get("http://172.18.0.4/api/data/config/?confname=runcontrolboard")
         # print(config)
         response = requests.post('http://localhost:8000/api/data/controlboard/testrun/',self.requestData)

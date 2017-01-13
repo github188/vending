@@ -1,6 +1,8 @@
 from django.conf.urls import url, include
 from rest_framework.authtoken import views
 
+from localomddata.api.views.coinmachine import CoinChangeListAPIView, CoinChangeCreateAPIView, CoinChangeDetailAPIView, \
+    CoinChangeUpdateAPIView, CoinChangeDeleteAPIView
 from localomddata.api.views.config import ConfigListAPIView, ConfigCreateAPIView, ConfigDetailAPIView, \
     ConfigUpdateAPIView, ConfigDeleteAPIView
 from localomddata.api.views.group import GroupListAPIView, GroupCreateAPIView, GroupDetailAPIView, GroupUpdateAPIView, \
@@ -121,4 +123,10 @@ urlpatterns = [
     url(r'^config/(?P<id>[\w-]+)/$', ConfigDetailAPIView.as_view(), name='config-detail'),
     url(r'^config/(?P<id>[\w-]+)/edit/$', ConfigUpdateAPIView.as_view(), name='config-update'),
     url(r'^config/(?P<id>[\w-]+)/delete/$', ConfigDeleteAPIView.as_view(), name='config-delete'),
+
+    url(r'^coinchangelog/$', CoinChangeListAPIView.as_view(), name='coinchange'),
+    url(r'^coinchangelog/create/$', CoinChangeCreateAPIView.as_view(), name='coinchange-create'),
+    url(r'^coinchangelog/(?P<id>[\w-]+)/$', CoinChangeDetailAPIView.as_view(), name='coinchange-detail'),
+    url(r'^coinchangelog/edit/(?P<id>[\w-]+)/$', CoinChangeUpdateAPIView.as_view(), name='coinchange-update'),
+    url(r'^coinchangelog/delete/(?P<id>[\w-]+)/$', CoinChangeDeleteAPIView.as_view(), name='coinchange-delete'),
 ]

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from localomddata.models.coinmachine import CoinChangeLog
 from localomddata.models.config import Config
 from localomddata.models.member import Member
 from localomddata.models.moneycharge import MoneyCharge
@@ -130,12 +131,21 @@ class MemberAdmin(admin.ModelAdmin):
     class Meta:
         model = Member;
 
+
+class CoinMachineAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "amountBefore", "amountData" ,"createTime"]
+    list_display_links = list_display
+    list_filter = ["amountData"]
+    ordering = ["-id"]
+    search_fields = ["amountData"]
+    class Meta:
+        model = CoinChangeLog
+
 class MemberInline(admin.StackedInline):
     model = Member
     can_delete = False
     fk_name = "user";
     verbose_name_plural = '会员'
-
 
 class UserAdmin(BaseUserAdmin):
     inlines = (MemberInline,)

@@ -88,12 +88,11 @@ class RotateCoil(Thread):
                     cboutput = ControlBoardOutput(input=self.inputCreated, outputDesc='Error open Ser')
                     cboutput.save()
 
-        tryoutCnt = 1
+        turnDone = 1
         result = []
-        print("turnCnt: %d" % (self.turnCnt))
-        while (ser.is_open == True and tryoutCnt <= self.turnCnt):
-            print("tryoutCnt: %d" % (tryoutCnt))
-            if(tryoutCnt == 1):
+        while (ser.is_open == True and turnDone <= self.turnCnt):
+            print("turnDone: %d" % (turnDone))
+            if(turnDone == 1):
                 turnCmd = self.firstCmd;
             else:
                 turnCmd = turnSlot(3, self.slotNo)
@@ -110,9 +109,9 @@ class RotateCoil(Thread):
                 #error happened
                 print("error while loop turnCnt: " + str(out[6:9]))
                 break
-            if (tryoutCnt < self.turnCnt):
+            if (turnDone < self.turnCnt):
                 time.sleep(2)
-            tryoutCnt += 1
+            turnDone += 1
         cboutput = ControlBoardOutput(input=self.inputCreated, outputDesc=result)
         cboutput.save()
 

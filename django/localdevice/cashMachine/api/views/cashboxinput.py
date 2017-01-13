@@ -2,6 +2,7 @@ from threading import Thread
 
 import time
 
+from pip._vendor import requests
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.generics import RetrieveAPIView
@@ -90,7 +91,11 @@ class OperateCashbox(Thread):
                 else:
                     cashboxLog = CashboxLog(operate=self.inputCreated, retData=10, operateStatus='succeed')
                 cashboxLog.save()
-
+            payoutCoinCnt = amountToDo%10;
+            if(payoutCoinCnt>0):
+                response1 = requests.post('http://localhost:8000/api/data/coinmachine/run/', {'payoutCnt': payoutCoinCnt})
+                print(response1)
+                response2 = requests.post('http://localhost:8000/api/data/coinmachine/coinlog/', {'retData': payoutCoinCnt})
             return 0
 
         if(self.operateName == 'terminate'):
@@ -141,3 +146,11 @@ class OperateCashbox(Thread):
             payoutCnt = self.libItlSSO.payoutCnt()
             cashboxLog = CashboxLog(operate=self.inputCreated, retData = payoutCnt, operateStatus='succeed')
             cashboxLog.save()
+
+
+        if (self.operateName == 'payoutCoin'):
+            amountToDo = self.operateData
+            requestData = {'payoutCnt': amountToDo}
+            response = requests.post('http://localhost:8000/api/data/coinmachine/run/', requestData)
+            print(response)
+

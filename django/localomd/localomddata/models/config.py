@@ -12,6 +12,7 @@ class Config(models.Model):
     ConfigType = (
         ('COM', '设备端口'),
         ('url', 'API地址'),
+        ('urlremote', '远程API地址'),
         ('locallib','本地库路径'),
         ('UI', '界面')
     )
