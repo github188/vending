@@ -95,8 +95,9 @@ class OperateCashbox(Thread):
             print("payoutCoinCnt: %d" % payoutCoinCnt)
             if(payoutCoinCnt>0):
                 response1 = requests.post('http://localhost:8000/api/data/coinmachine/run/', {'payoutCnt': payoutCoinCnt})
-                print(response1)
-                response2 = requests.post('http://localhost:8000/api/data/coinmachine/coinlog/', {'retData': payoutCoinCnt})
+                print("coinmachinerun response: "+response1.text)
+                # response2 = requests.post('http://172.18.0.4/api/data/coinchangelog/create/', {'amountBefore': -payoutCoinCnt})
+                # print("coinmachinerun response: " + response1.content)
             return 0
 
         if(self.operateName == 'terminate'):

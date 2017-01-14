@@ -41,10 +41,6 @@ class CoinMachineInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gener
         coinMachineRun = CoinMachineRun(data, inputCreated);
         coinMachineRun.setDaemon(True);
         coinMachineRun.start();
-
-        # rotateRet = rotate(request.data)
-        # cboutput = CoinMachineOutput(input=inputCreated, outputDesc=rotateRet)
-        # cboutput.save()
         return response
 
 class CoinMachineRun(Thread):
