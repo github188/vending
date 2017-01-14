@@ -91,7 +91,8 @@ class OperateCashbox(Thread):
                 else:
                     cashboxLog = CashboxLog(operate=self.inputCreated, retData=10, operateStatus='succeed')
                 cashboxLog.save()
-            payoutCoinCnt = amountToDo%10;
+            payoutCoinCnt = -amountToDo%10;
+            print("payoutCoinCnt: %d" % payoutCoinCnt)
             if(payoutCoinCnt>0):
                 response1 = requests.post('http://localhost:8000/api/data/coinmachine/run/', {'payoutCnt': payoutCoinCnt})
                 print(response1)

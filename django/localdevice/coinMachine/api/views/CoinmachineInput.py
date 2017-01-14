@@ -31,7 +31,7 @@ class CoinMachineInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gener
         payoutCnt = int(data['payoutCnt']) if (isinstance(data['payoutCnt'], str)) else data['payoutCnt']
         firstCmd = drive(payoutCnt)
         # if data._mutable and data._mutable is False:
-        #     data._mutable = True
+        data._mutable = True
         data['inputDesc'] = str(firstCmd)
         response = self.create(request, *args, **kwargs)
 

@@ -50,6 +50,7 @@ class ControlBoardInputView(mixins.ListModelMixin, mixins.CreateModelMixin, gene
         firstCmd = turnSlot(3, slotNo)
         # if data._mutable and data._mutable is False:
         #     data._mutable = True
+        request.POST._mutable = True
         data['inputDesc'] = str(firstCmd)
         response = self.create(request, *args, **kwargs)
 
@@ -71,7 +72,7 @@ class RotateCoil(Thread):
         self.slotNo = int(data['slotNo']) if (isinstance(data['slotNo'], str)) else data['slotNo']
         self.turnCnt = int(data['turnCnt']) if (isinstance(data['turnCnt'], str)) else data['turnCnt']
         self.inputCreated = inputCreated
-        self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
+        self.ser = serial.Serial(port='/dev/ttyUSB1', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
         self.firstCmd = firstCmd
 
     def run(self):

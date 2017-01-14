@@ -57,11 +57,6 @@ class OrderMain(models.Model):
     objects = OrderMainManager()
 
 
-
-# def createTotalPaid(instance):
-#     product = Product.objects.get(pk=instance.product.id)
-#     return product.saleUnitPrice * instance.itemCount;
-
 def pre_save_vm_receiver(sender, instance, *args, **kwargs):
     print(instance.orderNo)
     if not instance.orderNo:
@@ -69,21 +64,3 @@ def pre_save_vm_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_vm_receiver, sender=OrderMain)
-
-
-
-# def getOrderNo():
-#     year = int(str(datetime.now().year)[2:])
-#     month = datetime.now().month
-#     day = datetime.now().day
-#     hour = datetime.now().hour
-#     minute = datetime.now().minute
-#     seconds = datetime.now().second
-#     return "%02d-%02d-%02d-%02d%02d%02d" % (month, day, year, hour, minute, seconds)
-#
-#
-# def pre_save_order_receiver(sender, instance, *args, **kwargs):
-#     if (instance.user.name):
-#             instance.orderNo = instance.orderNo +'_'+ instance.user.name
-#
-# pre_save.connect(pre_save_order_receiver, sender=OrderMain)
