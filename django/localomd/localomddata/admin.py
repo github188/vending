@@ -133,7 +133,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 class CoinMachineAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "amountBefore", "amountData" ,"createTime"]
+    list_display = ["id", "user", "amountBefore", "amountData","amountAfter" ,"createTime"]
     list_display_links = list_display
     list_filter = ["amountData"]
     ordering = ["-id"]
