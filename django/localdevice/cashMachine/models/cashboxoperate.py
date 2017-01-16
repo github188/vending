@@ -7,6 +7,7 @@ class CashboxOperate(models.Model):
         ("toll", "收费"),
         ("terminate", "收费终止"),
         ("charge", "充零钱"),
+        ("memberCharge", "会员充值"),
         ("clearPayout", "零钱清空"),
         ("payout", "找零"),
         ("currentPayoutAvailable", "可用零钱"),
