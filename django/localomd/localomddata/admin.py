@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from localomddata.models.Loginlog import Loginlog
 from localomddata.models.coinmachine import CoinChangeLog
 from localomddata.models.config import Config
 from localomddata.models.member import Member
@@ -140,6 +141,15 @@ class CoinMachineAdmin(admin.ModelAdmin):
     search_fields = ["amountData"]
     class Meta:
         model = CoinChangeLog
+
+class LoginlogAdmin(admin.ModelAdmin):
+    list_display = ["id", "username", "password", "loginResult", "createTime"]
+    list_display_links = list_display
+    list_filter = ["loginResult"]
+    ordering = ["-id"]
+    search_fields = ["username"]
+    class Meta:
+        model = Loginlog
 
 class MemberInline(admin.StackedInline):
     model = Member

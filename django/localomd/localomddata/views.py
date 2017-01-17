@@ -26,6 +26,7 @@ def apiIndex(request):
         {"name": "售货机", "href": "/api/data/vendingmachine/"},
         {"name": "售货机类型", "href": "/api/data/vendingmachinetype/"},
         {"name": "用户", "href": "/api/data/user/"},
+        {"name": "会员", "href": "/api/data/member/"},
         {"name": "分组", "href": "/api/data/group/"},
         {"name": "配置", "href": "/api/data/config/"},
         {"name": "硬币变更", "href": "/api/data/coinchangelog/"},

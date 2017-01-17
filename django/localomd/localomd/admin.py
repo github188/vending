@@ -4,7 +4,8 @@ from django.contrib.auth.models import User, Group
 
 from localomddata.admin import VendingMachineAdmin, ProductCategoryAdmin, ProductProviderAdmin, ProductAdmin, SlotAdmin, \
     OrderMainAdmin, MoneyChargeAdmin, VendingMachineTypeAdmin, SlotStatusAdmin, ConfigAdmin, UserAdmin, MemberAdmin, \
-    CoinMachineAdmin
+    CoinMachineAdmin, LoginlogAdmin
+from localomddata.models.Loginlog import Loginlog
 from localomddata.models.coinmachine import CoinChangeLog
 from localomddata.models.config import Config
 from localomddata.models.member import Member
@@ -42,3 +43,4 @@ admin_omd.register(MoneyCharge, MoneyChargeAdmin)
 admin_omd.register(OrderMain, OrderMainAdmin)
 admin_omd.register(Config, ConfigAdmin)
 admin_omd.register(CoinChangeLog, CoinMachineAdmin)
+admin_omd.register(Loginlog, LoginlogAdmin)

@@ -116,7 +116,8 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAdminUser',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        'localomddata.models.Loginlog.OMDAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DATETIME_FORMAT':'%Y-%m-%d %H:%M:%S'
