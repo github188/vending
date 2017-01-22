@@ -27,6 +27,8 @@ class OMDAuthentication(authentication.BaseAuthentication):
     LOGINFAIL_THRESHOLD = 5
     LOGINFAIL_TIMEWAIT = 10
     def authenticate(self, request):
+        if(request.path != '/api/data/api-token-auth/'):
+            return
         global loginFailCnt
         username = request.data['username']
         if not username:
