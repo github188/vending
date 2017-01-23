@@ -1,8 +1,10 @@
 #docs.python.org/3/library/ctypes.html
-
+import ast
 from ctypes import *
 
 import time
+
+from pip._vendor import requests
 
 
 class SSP_FULL_KEY(Structure):
@@ -25,20 +27,29 @@ class SSP_COMMAND(Structure):
     ,("ResponseData", c_ubyte*255)
     ,("IgnoreError", c_ubyte)]
 
+def getConfLocation():
+    response1 = requests.get('http://172.18.0.4/api/data/config/?format=json&confname=libsso')
+    response2 = requests.get('http://172.18.0.4/api/data/config/?format=json&confname=cashmachine')
+    address = ast.literal_eval(response1.text)[0]["confvalue"]
+    portNo = ast.literal_eval(response2.text)[0]["confvalue"].encode()
+    return address, portNo
+
 class LibItlSSO():
 
     def __init__(self):
-        address1 = "/home/pjsong/Documents/git/bitbucket/itl-validator/libBasicValidator/Debug/libbasicvalidator.so"
-        self.libBasicValidator = CDLL(address1)
+        self.conf = getConfLocation()
+        # address1 = "/home/pjsong/Documents/git/bitbucket/itl-validator/libBasicValidator/Debug/libbasicvalidator.so"
+        self.libBasicValidator = CDLL(self.conf[0])
         self.sspCommand = byref(SSP_COMMAND())
-        self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyACM0', self.sspCommand)
+        self.initRet = self.libBasicValidator.omd_init_validator(self.conf[1], self.sspCommand)
         print("libitlsso  initRet:%d" % (self.initRet))
 
     def checkInitRet(self):
         tryCnt = 10
         while(self.initRet<0 and tryCnt>0):
             tryCnt -=1
-            self.initRet = self.libBasicValidator.omd_init_validator(b'/dev/ttyACM0', self.sspCommand)
+            # b'/dev/ttyACM0'
+            self.initRet = self.libBasicValidator.omd_init_validator(self.conf[1], self.sspCommand)
         if(self.initRet<0):
             return -1
         return 1

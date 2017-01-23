@@ -1,7 +1,9 @@
+import ast
 from threading import Thread
 
 import time
 import serial
+from pip._vendor import requests
 from rest_framework import generics
 from rest_framework import mixins
 
@@ -18,6 +20,10 @@ def drive(coinToPay):
     lastVal = toBeSumed + [summedUp]
     return lastVal
 
+def getConfLocation():
+    response = requests.get('http://172.18.0.4/api/data/config/?format=json&confname=coinmachine')
+    portNo = ast.literal_eval(response.text)[0]["confvalue"]
+    return portNo
 
 class CoinMachineInputView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = CoinMachineInput.objects.all();
@@ -48,7 +54,8 @@ class CoinMachineRun(Thread):
         Thread.__init__(self)
         self.payoutCnt = int(data['payoutCnt']) if (isinstance(data['payoutCnt'], str)) else data['payoutCnt']
         self.inputCreated = inputCreated
-        self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, parity=serial.PARITY_EVEN, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
+        self.portNo = getConfLocation()
+        self.ser = serial.Serial(port=self.portNo, baudrate=9600, parity=serial.PARITY_EVEN, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
 
     def run(self):
         ser = self.ser

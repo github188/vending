@@ -1,8 +1,10 @@
+import ast
 from threading import Thread
 
 import time
 import serial
 from django.core.cache import cache
+from pip._vendor import requests
 from rest_framework import generics
 from rest_framework import mixins
 
@@ -13,6 +15,10 @@ from controlBoard.models import ControlBoardInput, ControlBoardOutput
 #>>> ser.write(bytes([87,88,0,102,0,1,3,1,9,35]))
 #>>> ser.write(bytes([0x57,0x58,0x0,0x66,0x00,0x01,0x03,0x01,9,0x23]))
 
+def getConfLocation():
+    response = requests.get('http://172.18.0.4/api/data/config/?format=json&confname=controlboard')
+    portNo = ast.literal_eval(response.text)[0]["confvalue"]
+    return portNo
 
 frameId = 1
 
@@ -72,7 +78,8 @@ class RotateCoil(Thread):
         self.slotNo = int(data['slotNo']) if (isinstance(data['slotNo'], str)) else data['slotNo']
         self.turnCnt = int(data['turnCnt']) if (isinstance(data['turnCnt'], str)) else data['turnCnt']
         self.inputCreated = inputCreated
-        self.ser = serial.Serial(port='/dev/ttyUSB1', baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
+        self.portNo = getConfLocation()
+        self.ser = serial.Serial(port=self.portNo, baudrate=9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
         self.firstCmd = firstCmd
 
     def run(self):
