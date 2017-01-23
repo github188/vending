@@ -14,7 +14,7 @@ class UserCUSerializer(ModelSerializer):
 class UserListSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = UserCUSerializer.Meta.fields + ('date_joined',)
+        fields = ('id',) + UserCUSerializer.Meta.fields + ('date_joined',)
 
 class UserDetailSerializer(ModelSerializer):
     class Meta:

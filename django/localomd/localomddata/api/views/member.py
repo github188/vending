@@ -57,16 +57,18 @@ class MemberDeleteAPIView(DestroyAPIView):
 
 class MemberListAPIView(ListAPIView):
     serializer_class = MemberListSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def get_queryset(self):
         queryset = Member.objects.all().order_by("-id")
         username = self.request.query_params.get('username', None)
         if (username is not None):
             print("now operateName: " + username);
             queryset = queryset.filter(user__username__exact=username)
+        isManager = self.request.query_params.get('isManager', None)
+        if(isManager is not None):
+            queryset = queryset.filter(owner=1)
         queryset = queryset[:int(1)]
         return queryset
-    #def get_queryset()
 
 
 

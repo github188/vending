@@ -11,7 +11,7 @@ class MemberSerializer(Serializer):
 class MemberCUSerializer(ModelSerializer):
     class Meta:
         model = Member
-        fields = ('id', 'owner', 'user', 'balance',)
+        fields = ('id', 'owner', 'user', 'balance','telNo', 'wechatNo','website')
 
 
 class MemberListSerializer(ModelSerializer):
@@ -28,4 +28,4 @@ class MemberListSerializer(ModelSerializer):
 class MemberDetailSerializer(ModelSerializer):
     class Meta:
         model = Member
-        fields = ('id',) + MemberCUSerializer.Meta.fields
+        fields = MemberListSerializer.Meta.fields
