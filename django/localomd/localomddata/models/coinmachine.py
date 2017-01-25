@@ -2,15 +2,16 @@ from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
 
+from localomddata.models.commonFields import CommonFields
+
 predicateDict = {
     "CoinChange.user": "CoinChange",
 }
-class CoinChangeLog(models.Model):
+class CoinChangeLog(CommonFields):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["CoinChange.user"], default=1, verbose_name = "创建人")
     amountBefore = models.PositiveSmallIntegerField("前余额", default=0);
     amountData = models.SmallIntegerField("当前数量", default=0);
     amountAfter = models.PositiveSmallIntegerField("后余额");
-    createTime = models.DateTimeField("创建时间", auto_now=False, auto_now_add=True)
     class Meta:
         verbose_name = verbose_name_plural = "12. 硬币变更日志"
         ordering = ["-id",]

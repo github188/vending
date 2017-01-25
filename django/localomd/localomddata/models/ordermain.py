@@ -5,6 +5,7 @@ import datetime
 
 from django.db.models.signals import pre_save
 
+from localomddata.models.commonFields import CommonFields
 from localomddata.models.product import Product
 from localomddata.models.slot import Slot
 
@@ -40,7 +41,7 @@ def createOrderNo(instance):
         orderNo = orderPrefix + '0000'
     return orderNo
 
-class OrderMain(models.Model):
+class OrderMain(CommonFields):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["OrderMain.user"], default=1, verbose_name = "创建人")
     slot = models.ForeignKey(Slot, related_name="orders", on_delete=models.SET_NULL, blank=True, null=True, verbose_name = "货道")
     product = models.ForeignKey(Product, related_name="orders", on_delete=models.SET_NULL, blank=True, null=True, verbose_name = "商品")
@@ -49,7 +50,6 @@ class OrderMain(models.Model):
     payType = models.CharField("支付类型", max_length=1, choices=PayType, default="0")
     status = models.CharField("订单状态", max_length=1, choices=Status, default = '0')
     totalPaid = models.DecimalField("支付金额", max_digits=3, decimal_places=0)
-    createTime = models.DateTimeField("下单时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
     class Meta:
         verbose_name = verbose_name_plural = "09. 订单查看"

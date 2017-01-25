@@ -40,13 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
 
-    'crispy_forms',
-    'markdown_deux',
-    'pagedown',
     'rest_framework',
     'corsheaders',
 
-    'localomdweb',
     'localomddata',
     'mod_wsgi.server',
 ]
@@ -166,5 +162,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-FORMAT_MODULE_PATH = ['localomddata.formats', 'localomdweb.formats']
+FORMAT_MODULE_PATH = ['localomddata.formats']
 LOGIN_URL = '/admin_omd/login/'

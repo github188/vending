@@ -13,7 +13,7 @@ from localomddata.api.views.moneycharge import MoneyChargeListAPIView, MoneyChar
     MoneyChargeDetailAPIView, MoneyChargeUpdateAPIView, MoneyChargeDeleteAPIView
 from localomddata.api.views.ordermain import OrderMainDeleteAPIView, OrderMainUpdateAPIView, OrderMainDetailAPIView, \
     OrderMainCreateAPIView, OrderMainListAPIView
-from localomddata.api.views.permission.permissionview import adminPermView
+from localomddata.api.views.permission.permissionview import adminPermView, shutdownView
 from localomddata.api.views.product import ProductListAPIView, ProductCreateAPIView, ProductDetailAPIView, \
     ProductUpdateAPIView, ProductDeleteAPIView
 from localomddata.api.views.productcategory import ProductCategoryListAPIView, ProductCategoryCreateAPIView, \
@@ -38,6 +38,8 @@ urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token, name='rest_framework_token'),
 
     url(r'^perm/$', adminPermView, name='api-perm'),
+    url(r'^shutdown/$', shutdownView, name='shutdown'),
+
     url(r'^moneycharge/$', MoneyChargeListAPIView.as_view(), name='moneycharge'),
     url(r'^moneycharge/create/$', MoneyChargeCreateAPIView.as_view(), name='moneycharge-create'),
     url(r'^moneycharge/(?P<id>[\w-]+)/$', MoneyChargeDetailAPIView.as_view(), name='moneycharge-detail'),

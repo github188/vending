@@ -7,6 +7,7 @@ from django.db import models
 from rest_framework import authentication
 from rest_framework import exceptions
 
+from localomddata.models.commonFields import CommonFields
 from localomddata.models.vendingmachine import VendingMachine
 
 predicateDict = {
@@ -71,13 +72,12 @@ class OMDAuthentication(authentication.BaseAuthentication):
         return (user, None)
 
 
-class Loginlog(models.Model):
+class Loginlog(CommonFields):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["Login.user"], default=1, verbose_name = "创建人")
     # vendingMachine = models.ForeignKey(VendingMachine, related_name=predicateDict["Login.vmSlug"], on_delete=models.CASCADE, verbose_name = "售货机编号")
     loginResult = models.CharField("登录结果", max_length=20, choices=LoginlogResultType)
     username = models.CharField("使用用户名", max_length=60, )
     password = models.CharField("使用密码", max_length=60, )
-    createTime = models.DateTimeField("发生时间", auto_now_add=True, auto_now=False)
 
     class Meta:
         verbose_name = verbose_name_plural = "13. 登录日志"

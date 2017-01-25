@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_save
 
+from localomddata.models.commonFields import CommonFields
 from localomddata.models.productcategory import ProductCategory
 from localomddata.models.productprovider import ProductProvider
 
@@ -21,7 +22,7 @@ predicateDict = {
     ,"Product.user": "products"
 
 }
-class Product(models.Model):
+class Product(CommonFields):
     OrderCountUnit = (
         ("piece", "个"),
         ("package", "包"),
@@ -48,7 +49,6 @@ class Product(models.Model):
     saleUnitPrice =  models.PositiveSmallIntegerField("单品售价", default=500, validators=[MinValueValidator(1), MaxValueValidator(500)]);
     productBarUrl = models.URLField("支付条码地址", null=True)
     category = models.ManyToManyField(ProductCategory, related_name=predicateDict["Product.category"], verbose_name= "分类")
-    createTime = models.DateTimeField("创建时间", auto_now=False, auto_now_add=True)
     updateTime = models.DateTimeField("修改时间", auto_now=True, auto_now_add=False)
 
     class Meta:

@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_save
 
+from localomddata.models.commonFields import CommonFields
 from localomddata.models.vendingmachine import VendingMachine
 
 class MoneyChargeManager(models.Manager):
@@ -15,13 +16,12 @@ predicateDict = {
     "MoneyCharge.user": "userCharges"
     ,"MoneyCharge.vmSlug": "vmCharges"
 }
-class MoneyCharge(models.Model):
+class MoneyCharge(CommonFields):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["MoneyCharge.user"], default=1, verbose_name = "创建人")
     vmSlug = models.ForeignKey(VendingMachine, related_name=predicateDict["MoneyCharge.vmSlug"], on_delete=models.CASCADE, verbose_name="售货机编号")
     cashAmount = models.DecimalField("10元金额", default=1, max_digits=3, decimal_places=0)
     coinAmount = models.DecimalField("一元硬币金额", default=1, max_digits=3, decimal_places=0)
     totalAmount = models.DecimalField("合计金额",max_digits=3, decimal_places=0)
-    createTime = models.DateTimeField("发生时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)  #, null=True
     class Meta:
         verbose_name = verbose_name_plural = "08. 充值记录"
