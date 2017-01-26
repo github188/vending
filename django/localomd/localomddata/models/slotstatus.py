@@ -23,7 +23,6 @@ class SlotStatus(CommonFields):
     currentItemNum = models.PositiveSmallIntegerField("当前数量", default=0, validators=[MinValueValidator(1), MaxValueValidator(200)])
     malfunctionReportCount = models.PositiveSmallIntegerField("故障计数", default=0, validators=[MinValueValidator(0), MaxValueValidator(1000)])
     product = models.ForeignKey(Product, related_name=predicateDict["SlotStatus.product"], on_delete=models.SET_NULL, blank=True, null=True, verbose_name = "商品")
-    updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
 
     class Meta:
         verbose_name = verbose_name_plural = "07. 货道状态记录"

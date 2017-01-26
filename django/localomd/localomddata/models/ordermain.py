@@ -50,7 +50,6 @@ class OrderMain(CommonFields):
     payType = models.CharField("支付类型", max_length=1, choices=PayType, default="0")
     status = models.CharField("订单状态", max_length=1, choices=Status, default = '0')
     totalPaid = models.DecimalField("支付金额", max_digits=3, decimal_places=0)
-    updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
     class Meta:
         verbose_name = verbose_name_plural = "09. 订单查看"
     def __str__(self):

@@ -22,7 +22,6 @@ class MoneyCharge(CommonFields):
     cashAmount = models.DecimalField("10元金额", default=1, max_digits=3, decimal_places=0)
     coinAmount = models.DecimalField("一元硬币金额", default=1, max_digits=3, decimal_places=0)
     totalAmount = models.DecimalField("合计金额",max_digits=3, decimal_places=0)
-    updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)  #, null=True
     class Meta:
         verbose_name = verbose_name_plural = "08. 充值记录"
     def __str__(self):

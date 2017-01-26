@@ -1,12 +1,12 @@
 from django.db import models
 
-class ValidManager(models.Manager):
+class CommonManager(models.Manager):
     def get_querySet(self):
-        return super(ValidManager, self).get_queryset().filter(self.isDeleted == 'False')
+        return super(CommonManager, self).get_queryset().filter(self.isDeleted == 'False')
 
 class UnSyncedManager(models.Manager):
     def get_querySet(self):
-        return super(UnSyncedManager, self).get_queryset().filter(self.isDeleted == 'False').filter(self.sendFlag > '1')
+        return super(CommonManager, self).get_queryset().filter(self.isDeleted == 'False').filter(self.sendFlag > '1')
 """
   for most common fields
 """
@@ -19,7 +19,7 @@ class CommonFields(models.Model):
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)  #, null=True
 
     objects = models.Manager()
-    valid_objects = ValidManager()
+    valid_objects = CommonManager()
     unsynced_objects = UnSyncedManager()
 
     class Meta:

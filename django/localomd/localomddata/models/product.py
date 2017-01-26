@@ -49,7 +49,6 @@ class Product(CommonFields):
     saleUnitPrice =  models.PositiveSmallIntegerField("单品售价", default=500, validators=[MinValueValidator(1), MaxValueValidator(500)]);
     productBarUrl = models.URLField("支付条码地址", null=True)
     category = models.ManyToManyField(ProductCategory, related_name=predicateDict["Product.category"], verbose_name= "分类")
-    updateTime = models.DateTimeField("修改时间", auto_now=True, auto_now_add=False)
 
     class Meta:
         verbose_name = verbose_name_plural = "05. 商品详细"
