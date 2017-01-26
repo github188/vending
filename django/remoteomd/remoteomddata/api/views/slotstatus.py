@@ -1,4 +1,4 @@
-from remoteomddata.api.serializers.slotstatus import SlotStatusCUSerializer, SlotStatusDetailSerializer, SlotStatusListSerializer
+from localomddata.api.serializers.slotstatus import SlotStatusCUSerializer, SlotStatusDetailSerializer, SlotStatusListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -14,8 +14,8 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
-from remoteomddata.models.slotstatus import SlotStatus
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.models.slotstatus import SlotStatus
 
 
 class SlotStatusCreateAPIView(CreateAPIView):
@@ -38,7 +38,7 @@ class SlotStatusUpdateAPIView(RetrieveUpdateAPIView):
     queryset =SlotStatus.objects.all()
     serializer_class =SlotStatusCUSerializer
     lookup_field = 'id'
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly] #, IsOwnerOrReadOnly
     #lookup_url_kwarg = "abc"
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -53,10 +53,11 @@ class SlotStatusDeleteAPIView(DestroyAPIView):
     #lookup_url_kwarg = "abc"
 
 class SlotStatusListAPIView(ListAPIView):
-    queryset =SlotStatus.objects.all()
     serializer_class =SlotStatusListSerializer
-
-    #def get_queryset()
+    queryset = SlotStatus.objects.all()
+    # def get_queryset(self):
+    #     qs1 = SlotStatus.objects.all()
+    #     return qs1
 
 
 

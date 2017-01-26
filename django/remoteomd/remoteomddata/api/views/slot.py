@@ -1,4 +1,4 @@
-from remoteomddata.api.serializers.slot import SlotCUSerializer,SlotDetailSerializer,SlotListSerializer
+from localomddata.api.serializers.slot import SlotCUSerializer,SlotDetailSerializer,SlotListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -14,8 +14,8 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
-from remoteomddata.models.slot import Slot
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.models.slot import Slot
 
 
 class SlotCreateAPIView(CreateAPIView):

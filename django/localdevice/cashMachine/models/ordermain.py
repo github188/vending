@@ -5,6 +5,9 @@ import datetime
 
 from django.db.models.signals import pre_save
 
+from cashMachine.models.commonFields import CommonFields
+
+
 class OrderMainManager(models.Manager):
     def submitted(self, *args, **kwargs):
         return super(OrderMainManager, self).filter(status='0')
@@ -36,7 +39,7 @@ def createOrderNo():
     return orderNo
 
 
-class OrderMain(models.Model):
+class OrderMain(CommonFields):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["OrderMain.user"], default=1, verbose_name = "创建人")
     slot = models.CharField("货道Id", max_length=120, blank=True, null=True)
     product = models.CharField("商品Id", max_length=120, blank=True, null=True)
@@ -47,7 +50,6 @@ class OrderMain(models.Model):
     totalPaid = models.DecimalField("支付金额", max_digits=3, decimal_places=0)
     changeLeft = models.PositiveSmallIntegerField("纸币余额", default=-1)
     coinLeft = models.PositiveSmallIntegerField("硬币余额", default=-1)
-    createTime = models.DateTimeField("下单时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)
     class Meta:
         verbose_name = verbose_name_plural = "3. 订单查看"

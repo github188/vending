@@ -2,7 +2,8 @@
 ENV
 ENV3
 00*.py
-*.sqlite3
+migrations
+#*.sqlite3
 nohup.out
 # Byte-compiled / optimized / DLL files
 __pycache__/

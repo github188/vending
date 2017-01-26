@@ -24,9 +24,9 @@ class VendingMachine(models.Model):
     installTime = models.DateTimeField("安装时间", auto_now_add=False, auto_now=False)
     aliveTime = models.DateTimeField("运行开始时间", auto_now_add=False, auto_now=False)
     class Meta:
-        verbose_name = verbose_name_plural = "2. 售货机"
+        verbose_name = verbose_name_plural = "02. 售货机"
     def __str__(self):
-        return self.slug
+        return str(self.id)
 
 
 def createVmSlug(instance):

@@ -1,4 +1,4 @@
-from remoteomddata.api.serializers.vendingmachinetype import VendingMachineTypeCUSerializer,VendingMachineTypeDetailSerializer,VendingMachineTypeListSerializer
+from localomddata.api.serializers.vendingmachinetype import VendingMachineTypeCUSerializer,VendingMachineTypeDetailSerializer,VendingMachineTypeListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -14,8 +14,8 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
-from remoteomddata.models.vendingmachinetype import VendingMachineType
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.models.vendingmachinetype import VendingMachineType
 
 
 class VendingMachineTypeCreateAPIView(CreateAPIView):

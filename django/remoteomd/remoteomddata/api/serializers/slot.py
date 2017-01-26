@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
 
-from remoteomddata.models.slot import Slot
+from localomddata.models.slot import Slot
 
 class SlotSerializer(Serializer):
     pass

@@ -1,4 +1,4 @@
-from remoteomddata.api.serializers.ordermain import OrderMainCUSerializer, OrderMainDetailSerializer, OrderMainListSerializer
+from localomddata.api.serializers.ordermain import OrderMainCUSerializer, OrderMainDetailSerializer, OrderMainListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -14,8 +14,8 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
-from remoteomddata.models.ordermain import OrderMain
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.models.ordermain import OrderMain
 
 
 class OrderMainCreateAPIView(CreateAPIView):

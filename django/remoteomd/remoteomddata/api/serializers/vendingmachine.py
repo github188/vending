@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
 
-from remoteomddata.models.vendingmachine import VendingMachine
+from localomddata.models.vendingmachine import VendingMachine
 
 """
     slug = models.CharField("编号", max_length=120, unique=True)

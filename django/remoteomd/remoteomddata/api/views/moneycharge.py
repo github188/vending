@@ -14,10 +14,10 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
-from remoteomddata.api.serializers.moneycharge import MoneyChargeCUSerializer, MoneyChargeDetailSerializer, \
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.api.serializers.moneycharge import MoneyChargeCUSerializer, MoneyChargeDetailSerializer, \
     MoneyChargeListSerializer
-from remoteomddata.models.moneycharge import MoneyCharge
+from localomddata.models.moneycharge import MoneyCharge
 
 
 

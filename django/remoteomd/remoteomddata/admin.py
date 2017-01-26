@@ -1,5 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from remoteomddata.models.Loginlog import Loginlog
+from remoteomddata.models.coinmachine import CoinChangeLog
+from remoteomddata.models.config import Config
+from remoteomddata.models.member import Member
 from remoteomddata.models.moneycharge import MoneyCharge
 from remoteomddata.models.ordermain import OrderMain
 from remoteomddata.models.productcategory import ProductCategory
@@ -13,7 +18,7 @@ from .forms import ProductTextForm
 
 # class OmdDateSite(AdminSite):
 #     site_header = "abcdfff"
-# admin_omddata = OmdDateSite(name='localomddata')
+# admin_omddata = OmdDateSite(name='remoteomddata')
 
 class VendingMachineTypeAdmin(admin.ModelAdmin):
     list_display = ["id", "deliveryType", "cashBoxType", "coinBoxType", "num_SpringSlot", "num_GridSlot", "num_Cabinet"]
@@ -55,7 +60,7 @@ class ProductCategoryAdmin(admin.ModelAdmin):
         model = ProductCategory
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["id","provider", "productName", "saleUnitPrice", "orderCountUnit", "orderCount" ,"orderUnitPrice",
+    list_display = ["id","provider", "productNo", "productName", "saleUnitPrice", "orderCountUnit", "orderCount" ,"orderUnitPrice",
                     "imageRefUrl", "imageListUrl", "imageDetailUrl",# "productSummary", "productDesc",
                    "orderTime", "orderByUser", "isActive"]
     list_display_links = ["productName"]
@@ -77,7 +82,7 @@ class SlotAdmin(admin.ModelAdmin):
         model = Slot
 
 class SlotStatusAdmin(admin.ModelAdmin):
-    list_display = ["id", "slot", "product", "currentItemNum", "malfunctionReportCount", 'createTime', 'updateTime',]
+    list_display = ["id", "slot", "product", "currentItemNum","runningStatus", "malfunctionReportCount", 'createTime', 'updateTime',]
     list_display_links = ["id", "slot"]
     list_filter = ["slot", "product"]
     ordering =  list_filter + ["-createTime"]
@@ -106,6 +111,57 @@ class OrderMainAdmin(admin.ModelAdmin):
     exclude = ['orderNo']
     class Meta:
         model = OrderMain
+
+class ConfigAdmin(admin.ModelAdmin):
+    list_display = ["id", "user","vendingMachine",  "configtype", "confname", "confvalue",]
+    list_display_links = ["id", "confname"]
+    ordering = ["id", "configtype"]
+    list_filter = ["vendingMachine", "configtype", "confname"]
+    search_fields = list_filter
+
+    class Meta:
+        model = Config
+
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "balance"]
+    list_display_links = list_display
+    ordering = ["-id", "-balance"]
+    list_filter = ["user"]
+    search_fields = list_display
+
+    class Meta:
+        model = Member;
+
+
+class CoinMachineAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "amountBefore", "amountData","amountAfter" ,"createTime"]
+    list_display_links = list_display
+    list_filter = ["amountData"]
+    ordering = ["-id"]
+    search_fields = ["amountData"]
+    class Meta:
+        model = CoinChangeLog
+
+class LoginlogAdmin(admin.ModelAdmin):
+    list_display = ["id", "username", "password", "loginResult", "createTime"]
+    list_display_links = list_display
+    list_filter = ["loginResult"]
+    ordering = ["-id"]
+    search_fields = ["username"]
+    class Meta:
+        model = Loginlog
+
+class MemberInline(admin.StackedInline):
+    model = Member
+    can_delete = False
+    fk_name = "user";
+    verbose_name_plural = '会员'
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (MemberInline,)
+
+
+
 
 # admin.site.register(VendingMachine, VendingMachineAdmin)
 # admin.site.register(ProductProvider, ProductProviderAdmin)

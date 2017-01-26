@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from remoteomddata.models.product import Product
 from remoteomddata.models.vendingmachine import VendingMachine
 
 predicateDict = {
@@ -23,6 +22,6 @@ class Slot(models.Model):
     capacity = models.PositiveSmallIntegerField("货道容量", default=1, validators=[MinValueValidator(1), MaxValueValidator(200)]);
     controllType = models.CharField("驱动类型", max_length=20, choices=ControllType)
     class Meta:
-        verbose_name = verbose_name_plural = "6. 货道详细"
+        verbose_name = verbose_name_plural = "06. 货道详细"
     def __str__(self):
-        return self.slotNo
+        return str(self.id)

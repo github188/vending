@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, Serializer
 
-from remoteomddata.models.ordermain import OrderMain
+from localomddata.models.ordermain import OrderMain
 
 
 class OrderMainSerializer(Serializer):

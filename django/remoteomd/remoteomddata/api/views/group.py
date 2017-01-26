@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from remoteomddata.api.serializers.group import GroupCUSerializer, GroupDetailSerializer, GroupListSerializer
+from localomddata.api.serializers.group import GroupCUSerializer, GroupDetailSerializer, GroupListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -15,7 +15,7 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.api.permissions import IsOwnerOrReadOnly
 
 
 class GroupCreateAPIView(CreateAPIView):

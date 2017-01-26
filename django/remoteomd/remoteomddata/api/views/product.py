@@ -1,4 +1,4 @@
-from remoteomddata.api.serializers.product import ProductCUSerializer,ProductDetailSerializer,ProductListSerializer
+from localomddata.api.serializers.product import ProductCUSerializer,ProductDetailSerializer,ProductListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -14,8 +14,8 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
-from remoteomddata.models.product import Product
+from localomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.models.product import Product
 
 
 class ProductCreateAPIView(CreateAPIView):

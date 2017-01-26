@@ -31,6 +31,7 @@ class Product(models.Model):
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=predicateDict["Product.user"], default=1, verbose_name = "创建人")
     provider = models.ForeignKey(ProductProvider, related_name=predicateDict["Product.provider"], on_delete=models.SET_NULL, blank=True, null=True, verbose_name = "供应商" )
+    productNo = models.CharField("商品编号", max_length=120, unique=True)
     orderUnitPrice = models.PositiveSmallIntegerField("订购单价", default=90, validators=[MinValueValidator(1), MaxValueValidator(500)]);
     orderTotalPrice = models.PositiveSmallIntegerField("订购总价", validators=[MinValueValidator(1), MaxValueValidator(10000)]);
     orderCount = models.PositiveSmallIntegerField("订购数量", default=1, validators=[MinValueValidator(1), MaxValueValidator(10000)]);
@@ -51,15 +52,15 @@ class Product(models.Model):
     updateTime = models.DateTimeField("修改时间", auto_now=True, auto_now_add=False)
 
     class Meta:
-        verbose_name = verbose_name_plural = "5. 商品详细"
+        verbose_name = verbose_name_plural = "05. 商品详细"
     def __str__(self):
-        return self.productName
-
-def createProductOrderTotalPrice(instance):
-        return instance.orderUnitPrice * instance.orderCount
+        return str(self.id)
 
 def pre_save_product_receiver(sender, instance, *args, **kwargs):
         if not instance.orderTotalPrice:
-            instance.orderTotalPrice = createProductOrderTotalPrice(instance)
+            instance.orderTotalPrice = instance.orderUnitPrice * instance.orderCount
+        if not instance.productNo.startswith(instance.provider.__str__()):
+            instance.productNo = instance.provider.__str__()+'_' + instance.productNo
+
 
 pre_save.connect(pre_save_product_receiver, sender=Product)

@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
 
-from remoteomddata.models.productprovider import ProductProvider
+from localomddata.models.productprovider import ProductProvider
 
 class ProductProviderSerializer(Serializer):
     pass

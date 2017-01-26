@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from remoteomddata.api.serializers.user import UserCUSerializer,UserDetailSerializer,UserListSerializer
+from localomddata.api.serializers.user import UserCUSerializer,UserDetailSerializer,UserListSerializer
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -15,13 +15,13 @@ from rest_framework.permissions import (
 
     )
 
-from remoteomddata.api.permissions import IsOwnerOrReadOnly
+from localomddata.api.permissions import IsOwnerOrReadOnly
 
 
 class UserCreateAPIView(CreateAPIView):
     queryset =User.objects.all()
     serializer_class =UserCUSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def perform_create(self, serializer):
         serializer.save()
@@ -30,6 +30,8 @@ class UserCreateAPIView(CreateAPIView):
 class UserDetailAPIView(RetrieveAPIView):
     queryset =User.objects.all()
     serializer_class =UserDetailSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     lookup_field = 'id'
     #lookup_url_kwarg = "abc"
 
@@ -49,12 +51,15 @@ class UserUpdateAPIView(RetrieveUpdateAPIView):
 class UserDeleteAPIView(DestroyAPIView):
     queryset =User.objects.all()
     serializer_class =UserDetailSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     lookup_field = 'id'
     #lookup_url_kwarg = "abc"
 
 class UserListAPIView(ListAPIView):
     queryset =User.objects.all()
     serializer_class =UserListSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     #def get_queryset()
 

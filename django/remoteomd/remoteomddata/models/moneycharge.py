@@ -24,7 +24,7 @@ class MoneyCharge(models.Model):
     createTime = models.DateTimeField("发生时间", auto_now_add=True, auto_now=False)
     updateTime = models.DateTimeField("修改时间", auto_now_add=False, auto_now=True)  #, null=True
     class Meta:
-        verbose_name = verbose_name_plural = "8. 充值记录"
+        verbose_name = verbose_name_plural = "08. 充值记录"
     def __str__(self):
         return str(self.vmSlug) + '  '+ str(self.cashAmount)+ '  ' + str(self.coinAmount)
 

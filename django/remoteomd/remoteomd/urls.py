@@ -1,4 +1,4 @@
-"""remoteomd URL Configuration
+"""localomd URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from remoteomd.admin import admin_omd
+from localomd.admin import admin_omd
 
 urlpatterns = [
     url(r'^admin_omd/', admin_omd.urls),
     # url(r'^admin/', admin.site.urls),
+    # url(r'^web/', include('localomdweb.urls')),
     url(r'^', include('remoteomddata.urls', namespace='data')),
 ]

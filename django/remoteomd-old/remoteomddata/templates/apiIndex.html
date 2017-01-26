@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block style %}
+  body {
+      position: relative;
+  }
+  #folder-files {padding-top:50px;}
+{% endblock style %}
+
+{% block content %}
+<body>
+
+<div class="container">
+  <div class="container-fluid">
+      {% for ele in hrefDict %}
+      <div class="col-sm-4 col-md-3 thumbnail">
+          <div class="caption">
+              <p class="text-center">
+                  <a href={{ele.href}} class="btn btn-primary" role="button">{{ele.name}}</a>
+              </p>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}
+</body>

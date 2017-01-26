@@ -1,5 +1,5 @@
 """
-WSGI config for remoteomd project.
+WSGI config for localomd project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

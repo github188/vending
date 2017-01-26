@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, Serializer
 
-from remoteomddata.models.vendingmachinetype import VendingMachineType
+from localomddata.models.vendingmachinetype import VendingMachineType
 
 
 class VendingMachineTypeSerializer(Serializer):
