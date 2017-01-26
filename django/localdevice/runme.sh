@@ -13,7 +13,7 @@ sudo docker rm -v omddevice
 
 sudo docker run -d -v ~/vending/localdevice:/vending/localdevice \
 -v ~/vending/lib/libBasicValidator:/vending/lib/libBasicValidator \
---name omddevice \
+--name omddevice --network=omd-network --ip=172.18.0.2  \
 --restart=unless-stopped --privileged omddevice
 
 #python ../../../../proj/manage.py runserver 0.0.0.0:80 > /dev/null 2>&1 &

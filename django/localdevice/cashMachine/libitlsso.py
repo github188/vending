@@ -28,8 +28,10 @@ class SSP_COMMAND(Structure):
     ,("IgnoreError", c_ubyte)]
 
 def getConfLocation():
-    response1 = requests.get('http://172.18.0.4/api/data/config/?format=json&confname=libsso')
-    response2 = requests.get('http://172.18.0.4/api/data/config/?format=json&confname=cashmachine')
+    session  = requests.Session()
+    session.trust_env = False #disable proxy
+    response1 = session.get('http://172.18.0.4/api/data/config/?format=json&confname=libsso')
+    response2 = session.get('http://172.18.0.4/api/data/config/?format=json&confname=cashmachine')
     address = ast.literal_eval(response1.text)[0]["confvalue"]
     portNo = ast.literal_eval(response2.text)[0]["confvalue"].encode()
     return address, portNo
