@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 
+from localomddata.models.commonFields import CommonFields
 from localomddata.models.vendingmachine import VendingMachine
 
 predicateDict = {
@@ -8,7 +9,7 @@ predicateDict = {
     ,"Config.user": "configs"
 
 }
-class Config(models.Model):
+class Config(CommonFields):
     ConfigType = (
         ('COM', '设备端口'),
         ('url', 'API地址'),
@@ -21,7 +22,6 @@ class Config(models.Model):
     configtype = models.CharField("配置类型", max_length=20, choices=ConfigType)
     confname = models.CharField("配置名称", max_length=60, unique=True)
     confvalue = models.CharField("配置值", max_length=6000, unique=True)
-    sendFlag = models.PositiveSmallIntegerField("发送标志", default=2)
 
     class Meta:
         verbose_name = verbose_name_plural = "10. 配置详细"

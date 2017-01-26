@@ -25,9 +25,9 @@ SECRET_KEY = '+k9f)_g((ab=j46!25hcwv#p-1$95ey8hk5&mxo81-o@o)yu^6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.18.0.2']
 if(DEBUG):
-    ALLOWED_HOSTS = ALLOWED_HOSTS + ['172.18.0.4', '172.18.0.5', '127.0.0.1', 'localhost']
+    ALLOWED_HOSTS = ALLOWED_HOSTS + ['172.18.0.3', '172.18.0.4', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -59,8 +59,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8080',
-    '172.18.0.9:8080'
+    'localhost:80',
+    '172.18.0.2:80',
+    '172.18.0.3:80',
+    '172.18.0.4:80'
 )
 CORS_URLS_REGEX = r'^/api/data/.*$'
 CORS_ALLOW_CREDENTIALS = True
