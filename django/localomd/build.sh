@@ -5,7 +5,7 @@
 #sudo docker rm omddata-datacontainer
 
 #build container
-sudo docker build -t omddata_local .
+sudo docker build -t omddata .
 
 #create data container, just need once
 #sudo docker create -v /omddata-datacontainer --name omddata-datacontainer omddata_local true
@@ -15,6 +15,6 @@ sudo docker build -t omddata_local .
 
 #run container
 sudo docker run -d -v ~/vending/localomd:/vending/localomd --network=omd-network \
- --ip=172.18.0.2 -h omddata
- --name omddata --restart=unless-stopped omddata_local
+ --ip=172.18.0.4 -h omddata \
+ --name omddata --restart=unless-stopped omddata
 

@@ -59,10 +59,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:80',
-    '172.18.0.2:80',
-    '172.18.0.3:80',
-    '172.18.0.4:80'
+    'localhost',
+    '172.18.0.2',
+    '172.18.0.3',
+    '172.18.0.4'
 )
 CORS_URLS_REGEX = r'^/api/data/.*$'
 CORS_ALLOW_CREDENTIALS = True
